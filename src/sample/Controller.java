@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
 
 public class Controller {
 
@@ -17,6 +19,7 @@ public class Controller {
     public Slider sldVolumeBar;
 
     public AnchorPane ancpBackground;
+
 
     public void btnPlayPauseOnAction(ActionEvent event){
 
