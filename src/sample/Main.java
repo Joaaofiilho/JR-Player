@@ -15,7 +15,11 @@ public class Main extends Application {
         primaryStage.setTitle("JR-Player");
         primaryStage.setScene(new Scene(root, 500, 300));
         primaryStage.setResizable(false);
-        //primaryStage.getIcons().add(new Image("/images/icon.ico"));
+        try {
+            primaryStage.getIcons().add(new Image("/images/icon2.jpg"));
+        }catch(Exception e){
+            System.out.println("Caminho bugado");
+        }
         primaryStage.show();
     }
 
