@@ -7,6 +7,9 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.net.URI;
+
 public class Main extends Application {
 
     @Override
@@ -16,9 +19,9 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 500, 300));
         primaryStage.setResizable(false);
         try {
-            primaryStage.getIcons().add(new Image("/images/icon2.jpg"));
+            primaryStage.getIcons().add(new Image(new File("resources/images/icon2.jpg").toURI().toString()));
         }catch(Exception e){
-            System.out.println("Caminho bugado");
+            System.out.println("Caminho bugado: " + e.getMessage());
         }
         primaryStage.show();
     }
