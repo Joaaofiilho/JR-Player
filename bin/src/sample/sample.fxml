@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="teste" fx:id="ancpBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" style="-fx-background-color: #babaca;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+      <Slider fx:id="sldProgressBar" layoutX="50.0" layoutY="231.0" prefHeight="7.0" style="-fx-pref-width: 400;" />
+      <Slider fx:id="sldVolumeBar" layoutX="460.0" layoutY="59.0" orientation="VERTICAL" prefHeight="186.0" prefWidth="18.0" />
+      <Button fx:id="btnBackward" layoutX="183.0" layoutY="253.0" mnemonicParsing="false" onAction="#btnBackwardOnAction" text="|&lt;" />
+      <Button fx:id="btnForward" layoutX="272.0" layoutY="253.0" mnemonicParsing="false" onAction="#btnForwardOnAction" text="&gt;|" />
+      <Button fx:id="btnPlayPause" layoutX="233.0" layoutY="253.0" mnemonicParsing="false" onAction="#btnPlayPauseOnAction" prefHeight="31.0" prefWidth="34.0" text="P" />
+      <Button fx:id="btnStop" layoutX="452.0" layoutY="253.0" mnemonicParsing="false" onAction="#btnStopOnAction" prefHeight="31.0" prefWidth="34.0" text="S" />
+      <ListView layoutX="50.0" layoutY="60.0" prefHeight="163.0" prefWidth="400.0" />
+   </children>
+</AnchorPane>
