@@ -9,10 +9,10 @@
    <children>
       <Slider fx:id="sldProgressBar" layoutX="50.0" layoutY="231.0" prefHeight="7.0" style="-fx-pref-width: 400;" />
       <Slider fx:id="sldVolumeBar" layoutX="460.0" layoutY="59.0" orientation="VERTICAL" prefHeight="186.0" prefWidth="18.0" />
-      <Button fx:id="btnBackward" layoutX="183.0" layoutY="253.0" mnemonicParsing="false" onAction="#btnBackwardOnAction" text="|&lt;" />
-      <Button fx:id="btnForward" layoutX="272.0" layoutY="253.0" mnemonicParsing="false" onAction="#btnForwardOnAction" text="&gt;|" />
-      <Button fx:id="btnPlayPause" layoutX="233.0" layoutY="253.0" mnemonicParsing="false" onAction="#btnPlayPauseOnAction" prefHeight="31.0" prefWidth="34.0" text="P" />
-      <Button fx:id="btnStop" layoutX="452.0" layoutY="253.0" mnemonicParsing="false" onAction="#btnStopOnAction" prefHeight="31.0" prefWidth="34.0" text="S" />
+      <Button fx:id="btnBackward" layoutX="187.0" layoutY="253.0" mnemonicParsing="false" onAction="#btnBackwardOnAction" prefHeight="39.0" prefWidth="41.0" text="|&lt;" />
+      <Button fx:id="btnForward" layoutX="274.0" layoutY="253.0" mnemonicParsing="false" onAction="#btnForwardOnAction" prefHeight="39.0" prefWidth="41.0" text="&gt;|" />
+      <Button fx:id="btnPlayPause" layoutX="230.0" layoutY="253.0" mnemonicParsing="false" onAction="#btnPlayPauseOnAction" prefHeight="39.0" prefWidth="41.0" text="P" />
+      <Button fx:id="btnStop" layoutX="445.0" layoutY="253.0" mnemonicParsing="false" onAction="#btnStopOnAction" prefHeight="39.0" prefWidth="41.0" text="S" />
       <ListView layoutX="50.0" layoutY="60.0" prefHeight="163.0" prefWidth="400.0" />
    </children>
 </AnchorPane>
