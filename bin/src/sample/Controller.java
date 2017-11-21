@@ -17,16 +17,27 @@ public class Controller {
     private final String songPath = "resources/songs/";
     //FORMATO!!!!!!!!!!!!!!!
     //teste
-    public String africaPath = songPath + "Africa.mp3";
+    public String africaPath = songPath + "Imagine Dragons - Radioactive.mp3";
     public Media media;
     public MediaPlayer mediaPlayer;
     public FileChooser fileChooser;
 
+    //Ler e escrever em arquivos de texto
+    public FileOutputStream arquivoO;
+    public PrintWriter pr;
+
+    public FileInputStream arquivoI;
+    public InputStreamReader input;
+    public BufferedReader br;
+
+    //Criar e copiar arquivos
+    public DataOutputStream data;
     @FXML
     public Button btnPlayPause;
     public Button btnStop;
     public Button btnForward;
     public Button btnBackward;
+    public Button btnAddMusic;
 
     public Slider sldProgressBar;
     public Slider sldVolumeBar;
@@ -34,6 +45,8 @@ public class Controller {
     public Label lblDisplay;
 
     public AnchorPane ancpBackground;
+
+    public ListView lstvLista;
 
     public Controller(){
         isPlaying = false;
@@ -45,6 +58,21 @@ public class Controller {
             System.out.println("Caminho não encontrado: " + e);
         }
 
+        //Configurando os leitores e escritores de arquivos txt
+        try {
+            arquivoO = new FileOutputStream("");
+            pr = new PrintWriter(arquivoO);
+
+            arquivoI = new FileInputStream("");
+            input = new InputStreamReader(arquivoI);
+            br = new BufferedReader(input);
+        }catch (FileNotFoundException e){
+            System.out.println("Arquivo não encontrado");
+        }
+
+        //Definindo que tipo de arquivos o FileChooser pode pegar
+        //fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Arquivos MP3", "*.mp3"));
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Arquivo MP3", "*.mp3"));
     }
 
     public void btnPlayPauseOnAction(ActionEvent event) {
@@ -80,16 +108,27 @@ public class Controller {
 
     }
 
-    //Métodos úteis
-    public static void definirEscritor(FileOutputStream arquivo, PrintWriter pr, String uri) throws IOException {
-        arquivo = new FileOutputStream(uri);
-        pr = new PrintWriter(arquivo);
+    public void btnAddMusicOnAction(ActionEvent event){
+        File file = fileChooser.showOpenDialog(null);
+        //System.out.println(file.getName());
     }
 
-    public static void definirLeitor(FileInputStream arquivo, InputStreamReader input, BufferedReader br, String uri) throws IOException {
-        arquivo = new FileInputStream(uri);
-        input = new InputStreamReader(arquivo);
-        br = new BufferedReader(input);
+    //Métodos úteis
+
+    public void definirLeitor(String uri){
+        try {
+            arquivoO = new FileOutputStream(new File(uri).toURI().toString());
+        }catch (FileNotFoundException e){
+            System.out.println("Arquivo não encontrado!");
+        }
+    }
+
+    public void definirEscritor(String uri){
+        try {
+            arquivoI = new FileInputStream(new File(uri).toURI().toString());
+        }catch (FileNotFoundException e){
+            System.out.println("Arquivo não encontrado!");
+        }
     }
 
     public boolean isPlaying;
