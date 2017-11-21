@@ -48,19 +48,26 @@ public class Controller {
     }
 
     public void btnPlayPauseOnAction(ActionEvent event) {
-        lblDisplay.setText("Now playing:" +  media.toString());
-
-        if (isPlaying){
-            mediaPlayer.pause();
-            isPlaying = false;
-        } else {
-            mediaPlayer.play();
-            isPlaying = true;
+        try {
+            lblDisplay.setText("Now playing:" +  media.toString());
+            if (isPlaying) {
+                mediaPlayer.pause();
+                isPlaying = false;
+            } else {
+                mediaPlayer.play();
+                isPlaying = true;
+            }
+        }catch (Exception e){
+            System.out.println("Música não encontrada: " + e);
         }
     }
 
     public void btnStopOnAction(ActionEvent event) {
-        mediaPlayer.stop();
+        try {
+            mediaPlayer.stop();
+        }catch (Exception e){
+            System.out.println("Nenhuma música está tocando: " + e);
+        }
         isPlaying = false;
     }
 
