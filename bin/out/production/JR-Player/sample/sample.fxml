@@ -5,26 +5,22 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="teste" fx:id="ancpBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="500.0" style="-fx-background-color: #babaca;" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane id="teste" fx:id="ancpBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="500.0" style="-fx-background-color: #babaca;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
       <Slider fx:id="sldProgressBar" layoutX="50.0" layoutY="293.0" max="500.0" prefHeight="7.0" style="-fx-pref-width: 400;" />
-      <Slider fx:id="sldVolumeBar" layoutX="467.0" layoutY="61.0" orientation="VERTICAL" prefHeight="241.0" prefWidth="18.0" value="50.0" />
+      <Slider fx:id="sldVolumeBar" layoutX="467.0" layoutY="61.0" orientation="VERTICAL" prefHeight="241.0" prefWidth="18.0" />
       <Button fx:id="btnBackward" layoutX="187.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnBackwardOnAction" prefHeight="39.0" prefWidth="41.0" text="|&lt;" />
       <Button fx:id="btnForward" layoutX="274.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnForwardOnAction" prefHeight="39.0" prefWidth="41.0" text="&gt;|" />
       <Button fx:id="btnPlayPause" layoutX="230.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnPlayPauseOnAction" prefHeight="39.0" prefWidth="41.0" text="P" />
       <Button fx:id="btnStop" layoutX="455.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnStopOnAction" prefHeight="39.0" prefWidth="41.0" text="S" />
-      <ListView layoutX="50.0" layoutY="60.0" prefHeight="163.0" prefWidth="400.0" />
+      <ListView fx:id="lstvLista" layoutX="50.0" layoutY="60.0" prefHeight="163.0" prefWidth="400.0" />
       <Label fx:id="lblDisplay" alignment="CENTER" layoutX="50.0" layoutY="240.0" prefHeight="39.0" prefWidth="400.0" style="-fx-background-color: #000000;" text="Label" textFill="#10d709">
          <font>
             <Font name="Consolas" size="20.0" />
          </font>
       </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="39.0" layoutX="50.0" layoutY="240.0" stroke="#7c7c7c" strokeType="INSIDE" strokeWidth="3.0" width="400.0" />
-      <Button alignment="CENTER" layoutX="5.0" layoutY="182.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="41.0" text="C" textAlignment="CENTER" />
-      <Button alignment="CENTER" layoutX="5.0" layoutY="122.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="41.0" text="B" textAlignment="CENTER" />
-      <Button alignment="CENTER" layoutX="5.0" layoutY="61.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="41.0" text="A" textAlignment="CENTER" />
+      <Button fx:id="btnAddMusic" layoutX="9.0" layoutY="60.0" mnemonicParsing="false" onAction="#btnAddMusicOnAction" prefHeight="39.0" prefWidth="41.0" text="+" />
    </children>
 </AnchorPane>
