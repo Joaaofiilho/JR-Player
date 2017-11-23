@@ -8,10 +8,10 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="teste" fx:id="ancpBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="500.0" style="-fx-background-color: #babaca;" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane id="teste" fx:id="ancpBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="500.0" style="-fx-background-color: #babaca;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
       <Slider fx:id="sldProgressBar" layoutX="50.0" layoutY="293.0" max="500.0" prefHeight="7.0" style="-fx-pref-width: 400;" />
-      <Slider fx:id="sldVolumeBar" layoutX="467.0" layoutY="61.0" orientation="VERTICAL" prefHeight="241.0" prefWidth="18.0" />
+      <Slider fx:id="sldVolumeBar" layoutX="466.0" layoutY="58.0" orientation="VERTICAL" prefHeight="241.0" prefWidth="18.0" />
       <Button fx:id="btnBackward" layoutX="187.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnBackwardOnAction" prefHeight="39.0" prefWidth="41.0" text="|&lt;" />
       <Button fx:id="btnForward" layoutX="274.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnForwardOnAction" prefHeight="39.0" prefWidth="41.0" text="&gt;|" />
       <Button fx:id="btnPlayPause" layoutX="230.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnPlayPauseOnAction" prefHeight="39.0" prefWidth="41.0" text="P" />
@@ -22,9 +22,12 @@
             <Font name="Consolas" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="btnAddMusic" layoutX="5.0" layoutY="60.0" mnemonicParsing="false" onAction="#btnAddMusicOnAction" prefHeight="39.0" prefWidth="41.0" text="+" />
-      <Button fx:id="btnAddMusic1" layoutX="5.0" layoutY="122.0" mnemonicParsing="false" onAction="#btnAddMusicOnAction" prefHeight="39.0" prefWidth="41.0" text="B" />
-      <Button fx:id="btnAddMusic11" layoutX="5.0" layoutY="184.0" mnemonicParsing="false" onAction="#btnAddMusicOnAction" prefHeight="39.0" prefWidth="41.0" text="C" />
+      <Button fx:id="btnAddMusic" alignment="CENTER" layoutX="50.0" layoutY="16.0" mnemonicParsing="false" onAction="#btnAddMusicOnAction" prefHeight="39.0" prefWidth="195.0" text="Adicionar música ao player" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="btnSwitchMode" alignment="CENTER" defaultButton="true" layoutX="5.0" layoutY="60.0" mnemonicParsing="false" onAction="#btnSwitchModeOnAction" prefHeight="163.0" prefWidth="42.0" text="Modo">
+         <font>
+            <Font size="10.0" />
+         </font></Button>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="39.0" layoutX="50.0" layoutY="240.0" stroke="#808080" strokeWidth="4.0" width="400.0" />
+      <Button fx:id="btnCreateNewPlaylist" alignment="CENTER" layoutX="254.0" layoutY="16.0" mnemonicParsing="false" onAction="#btnCreateNewPlaylistOnAction" prefHeight="39.0" prefWidth="195.0" text="Criar nova playlist" textAlignment="CENTER" wrapText="true" />
    </children>
 </AnchorPane>

@@ -36,6 +36,8 @@ public class Controller {
     public Button btnForward;
     public Button btnBackward;
     public Button btnAddMusic;
+    public Button btnCreateNewPlaylist;
+    public Button btnSwitchMode;
 
     public Slider sldProgressBar;
     public Slider sldVolumeBar;
@@ -47,12 +49,14 @@ public class Controller {
     public ListView lstvLista;
 
     public boolean isPlaying;
+    public boolean modeOne;
 
     private final String songPath = "resources/songs/";
     public String africaPath = songPath + "Africa.mp3";
 
     public Controller(){
         isPlaying = false;
+        modeOne = true;
         fileChooser = new FileChooser();
         try {
             //Depois ajeitar o trycatch, não sei se fica necessário fazer isso aqui, pode ser no playPause msm...
@@ -72,13 +76,14 @@ public class Controller {
             arquivoI = new FileInputStream("");
             input = new InputStreamReader(arquivoI);
             br = new BufferedReader(input);
-        }catch (FileNotFoundException e){
+        } catch (FileNotFoundException e){
             System.out.println("Arquivo não encontrado");
         }
 
         //Definindo que tipo de arquivos o FileChooser pode pegar
         //fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Arquivos MP3", "*.mp3"));
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Arquivo MP3", "*.mp3"));
+
     }
 
     public void btnPlayPauseOnAction(ActionEvent event) {
@@ -103,6 +108,12 @@ public class Controller {
             System.out.println("Nenhuma música está tocando: " + e);
         }
         isPlaying = false;
+
+        try {
+            lblDisplay.setText(" ");
+        } catch (Exception e){
+            System.out.println("Erro de label");
+        }
     }
 
     public void btnForwardOnAction(ActionEvent event) {
@@ -124,6 +135,24 @@ public class Controller {
             System.out.println("Arquivo nulo: " + e);
         }
         //System.out.println(file.getName());
+    }
+
+    public void btnCreateNewPlaylistOnAction(ActionEvent event){
+
+    }
+
+    public void btnSwitchModeOnAction(ActionEvent event){
+        if (modeOne){
+            btnAddMusic.setVisible(false);
+            btnCreateNewPlaylist.setVisible(false);
+
+            modeOne = false;
+        } else {
+            btnAddMusic.setVisible(true);
+            btnCreateNewPlaylist.setVisible(true);
+
+            modeOne = true;
+        }
     }
 
     //Métodos úteis
