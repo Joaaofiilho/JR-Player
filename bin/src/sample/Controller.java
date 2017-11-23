@@ -11,6 +11,8 @@ import javafx.util.Duration;
 
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 public class Controller {
 
@@ -77,21 +79,11 @@ public class Controller {
         //Definindo que tipo de arquivos o FileChooser pode pegar
         //fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Arquivos MP3", "*.mp3"));
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Arquivo MP3", "*.mp3"));
-
-        //Tentei fazer uns bicho com volume não deu certo Kappa
-//        sldVolumeBar = new Slider();
-//        sldVolumeBar.setValue(mediaPlayer.getVolume() * 50);
-//        sldVolumeBar.valueProperty().addListener(new InvalidationListener() {
-//            @Override
-//            public void invalidated(Observable observable) {
-//                mediaPlayer.setVolume(sldVolumeBar.getValue() / 100);
-//            }
-//        });
     }
 
     public void btnPlayPauseOnAction(ActionEvent event) {
         try {
-            lblDisplay.setText("Now playing: " +  media.toString().substring(64));
+            lblDisplay.setText("Now playing: " + getNomeDaMusica(media));
             if (isPlaying) {
                 mediaPlayer.pause();
                 isPlaying = false;
@@ -124,6 +116,13 @@ public class Controller {
 
     public void btnAddMusicOnAction(ActionEvent event){
         File file = fileChooser.showOpenDialog(null);
+        try {
+            Files.copy(file.toPath(), new File(songPath + file.getName()).toPath(), StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e){
+            System.out.println("PICNIC: " + e);
+        } catch (NullPointerException e){
+            System.out.println("Arquivo nulo: " + e);
+        }
         //System.out.println(file.getName());
     }
 
@@ -132,7 +131,7 @@ public class Controller {
     public void definirLeitor(String uri){
         try {
             arquivoO = new FileOutputStream(new File(uri).toURI().toString());
-        }catch (FileNotFoundException e){
+        } catch (FileNotFoundException e){
             System.out.println("Arquivo não encontrado!");
         }
     }
@@ -140,9 +139,14 @@ public class Controller {
     public void definirEscritor(String uri){
         try {
             arquivoI = new FileInputStream(new File(uri).toURI().toString());
-        }catch (FileNotFoundException e){
+        } catch (FileNotFoundException e){
             System.out.println("Arquivo não encontrado!");
         }
+    }
+
+    public String getNomeDaMusica(Media media){
+        String songName = new File(media.getSource()).getName();
+        return songName.substring(0, songName.length() - 4);
     }
 
 }
