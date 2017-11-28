@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
@@ -38,6 +39,10 @@ public class Controller {
     public Button btnAddMusic;
     public Button btnCreateNewPlaylist;
     public Button btnSwitchMode;
+    public Button btnAddMusicToPlaylist;
+    public Button btnRemoveMusicFromPlaylist;
+    public Button btnShufflePlaylist;
+    public Button btnAlphabeticSortPlaylist;
 
     public Slider sldProgressBar;
     public Slider sldVolumeBar;
@@ -46,12 +51,17 @@ public class Controller {
 
     public AnchorPane ancpBackground;
 
-    public ListView lstvLista;
+    public ListView<String> lstvLista = new ListView<String>();
 
     public boolean isPlaying;
     public boolean modeOne;
+    public String currentSong;
+    public ObservableList<String> currentPlaylist;
+
+//    https://docs.oracle.com/javafx/2/ui_controls/list-view.htm
 
     private final String songPath = "resources/songs/";
+
     public String africaPath = songPath + "Africa.mp3";
 
     public Controller(){
@@ -153,6 +163,22 @@ public class Controller {
 
             modeOne = true;
         }
+    }
+
+    public void btnAddMusicToPlaylistAction(ActionEvent event){
+
+    }
+
+    public void btnRemoveMusicFromPlaylistOnAction(ActionEvent event){
+
+    }
+
+    public void btnShufflePlaylistOnAction(ActionEvent event){
+
+    }
+
+    public void btnAlphabeticSortPlaylistOnAction(ActionEvent event){
+
     }
 
     //Métodos úteis
