@@ -38,9 +38,10 @@ public class Controller {
     public Button btnBackward;
     public Button btnAddMusic;
     public Button btnCreateNewPlaylist;
+    public Button btnLoadPlaylist;
     public Button btnSwitchMode;
-    public Button btnAddMusicToPlaylist;
-    public Button btnRemoveMusicFromPlaylist;
+    public Button btnAddMusicToPlaylist = new Button();
+    public Button btnRemoveMusicFromPlaylist = new Button();
     public Button btnShufflePlaylist;
     public Button btnAlphabeticSortPlaylist;
 
@@ -77,6 +78,7 @@ public class Controller {
         }catch (Exception e){
             System.out.println("Caminho não encontrado: " + e);
         }
+
 
         //Configurando os leitores e escritores de arquivos txt
         try {
@@ -151,21 +153,33 @@ public class Controller {
 
     }
 
+    public void btnLoadPlaylistOnAction(ActionEvent event){
+
+    }
+
     public void btnSwitchModeOnAction(ActionEvent event){
         if (modeOne){
             btnAddMusic.setVisible(false);
             btnCreateNewPlaylist.setVisible(false);
+            btnLoadPlaylist.setVisible(false);
+
+            btnAddMusicToPlaylist.setVisible(true);
+            btnRemoveMusicFromPlaylist.setVisible(true);
 
             modeOne = false;
         } else {
             btnAddMusic.setVisible(true);
             btnCreateNewPlaylist.setVisible(true);
+            btnLoadPlaylist.setVisible(true);
+
+            btnAddMusicToPlaylist.setVisible(false);
+            btnRemoveMusicFromPlaylist.setVisible(false);
 
             modeOne = true;
         }
     }
 
-    public void btnAddMusicToPlaylistAction(ActionEvent event){
+    public void btnAddMusicToPlaylistOnAction(ActionEvent event){
 
     }
 
