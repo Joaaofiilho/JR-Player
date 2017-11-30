@@ -54,6 +54,8 @@ public class Controller {
 
     public ListView<String> lstvLista = new ListView<String>();
 
+    public MyThread threadBarra;
+
     public boolean isPlaying;
     public boolean modeOne;
     public String currentSong;
@@ -69,6 +71,7 @@ public class Controller {
         isPlaying = false;
         modeOne = true;
         fileChooser = new FileChooser();
+
         try {
             //Depois ajeitar o trycatch, não sei se fica necessário fazer isso aqui, pode ser no playPause msm...
             //Se bem que seria util você colocar uma música inicial p/ prevenção de erros
@@ -107,6 +110,8 @@ public class Controller {
             } else {
                 mediaPlayer.play();
                 isPlaying = true;
+                threadBarra = new MyThread(this, mediaPlayer, sldProgressBar);
+                threadBarra.start();
             }
         }catch (Exception e){
             System.out.println("Música não encontrada: " + e);
@@ -125,6 +130,12 @@ public class Controller {
             lblDisplay.setText(" ");
         } catch (Exception e){
             System.out.println("Erro de label");
+        }
+
+        try{
+            sldProgressBar.setValue(0);
+        } catch (Exception e){
+            System.out.println("Erro na barra de progresso");
         }
     }
 
@@ -187,6 +198,10 @@ public class Controller {
 
     }
 
+    public void sldProgressBarOnDrop(ActionEvent event){
+
+    }
+
     public void btnShufflePlaylistOnAction(ActionEvent event){
 
     }
@@ -218,4 +233,7 @@ public class Controller {
         return songName.substring(0, songName.length() - 4);
     }
 
+    public boolean isPlaying() {
+        return isPlaying;
+    }
 }
