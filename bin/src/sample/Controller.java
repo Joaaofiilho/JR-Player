@@ -8,7 +8,6 @@ import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
-import javafx.util.Duration;
 
 
 import java.io.*;
@@ -39,7 +38,7 @@ public class Controller {
     public Button btnAddMusic;
     public Button btnCreateNewPlaylist;
     public Button btnLoadPlaylist;
-    public Button btnSwitchMode;
+    public ToggleButton tgbSwitchMode;
     public Button btnAddMusicToPlaylist = new Button();
     public Button btnRemoveMusicFromPlaylist = new Button();
     public Button btnShufflePlaylist;
@@ -168,7 +167,7 @@ public class Controller {
 
     }
 
-    public void btnSwitchModeOnAction(ActionEvent event){
+    public void tgbSwitchModeOnAction(ActionEvent event){
         if (modeOne){
             btnAddMusic.setVisible(false);
             btnCreateNewPlaylist.setVisible(false);
@@ -195,10 +194,6 @@ public class Controller {
     }
 
     public void btnRemoveMusicFromPlaylistOnAction(ActionEvent event){
-
-    }
-
-    public void sldProgressBarOnDrop(ActionEvent event){
 
     }
 

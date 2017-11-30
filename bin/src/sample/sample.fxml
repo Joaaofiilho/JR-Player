@@ -4,13 +4,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="teste" fx:id="ancpBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="500.0" style="-fx-background-color: #babaca;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-      <Slider fx:id="sldProgressBar" layoutX="50.0" layoutY="293.0" max="1000.0" onDragDropped="#sldProgressBarOnDrop" prefHeight="7.0" style="-fx-pref-width: 400;" />
+      <Slider fx:id="sldProgressBar" layoutX="50.0" layoutY="293.0" max="1000.0" prefHeight="7.0" style="-fx-pref-width: 400;" />
       <Slider fx:id="sldVolumeBar" layoutX="466.0" layoutY="58.0" orientation="VERTICAL" prefHeight="241.0" prefWidth="18.0" />
       <Button fx:id="btnBackward" layoutX="187.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnBackwardOnAction" prefHeight="39.0" prefWidth="41.0" text="|&lt;" />
       <Button fx:id="btnForward" layoutX="274.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnForwardOnAction" prefHeight="39.0" prefWidth="41.0" text="&gt;|" />
@@ -26,10 +27,6 @@
          <font>
             <Font size="11.0" />
          </font></Button>
-      <Button fx:id="btnSwitchMode" alignment="CENTER" defaultButton="true" layoutX="-57.0" layoutY="121.0" mnemonicParsing="false" onAction="#btnSwitchModeOnAction" prefHeight="42.0" prefWidth="163.0" rotate="-90.0" text="Modo">
-         <font>
-            <Font size="14.0" />
-         </font></Button>
       <Rectangle fill="#1f93ff00" height="40.0" layoutX="50.0" layoutY="240.0" stroke="#808080" strokeType="INSIDE" strokeWidth="4.0" width="400.0" />
       <Button fx:id="btnCreateNewPlaylist" alignment="CENTER" ellipsisString="" layoutX="185.0" layoutY="5.0" mnemonicParsing="false" onAction="#btnCreateNewPlaylistOnAction" prefHeight="50.0" prefWidth="130.0" text="Criar nova&#10;playlist&#10;" textAlignment="CENTER">
          <font>
@@ -42,5 +39,6 @@
       </Button>
       <Button fx:id="btnAddMusicToPlaylist" alignment="CENTER" layoutX="50.0" layoutY="5.0" mnemonicParsing="false" onAction="#btnAddMusicToPlaylistOnAction" prefHeight="50.0" prefWidth="199.0" text="Adicionar música&#10;a playlist atual&#10;&#10;&#10;" textAlignment="CENTER" visible="false" />
       <Button fx:id="btnRemoveMusicFromPlaylist" alignment="CENTER" layoutX="251.0" layoutY="5.0" mnemonicParsing="false" onAction="#btnRemoveMusicFromPlaylistOnAction" prefHeight="50.0" prefWidth="199.0" text="Remover música &#10;da playlist atual&#10;&#10;&#10;" textAlignment="CENTER" visible="false" />
+      <ToggleButton fx:id="tgbSwitchMode" layoutX="2.0" layoutY="58.0" mnemonicParsing="false" onAction="#tgbSwitchModeOnAction" prefHeight="163.0" prefWidth="48.0" text="Modo" />
    </children>
 </AnchorPane>
