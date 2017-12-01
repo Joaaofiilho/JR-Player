@@ -7,29 +7,19 @@ import javafx.event.ActionEvent;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.stage.FileChooser;
 
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 
 public class Controller {
 
-    public Media media;
-    public MediaPlayer mediaPlayer;
-    public FileChooser fileChooser;
+    private Media media;
+    private MediaPlayer mediaPlayer;
+    private PlaylistPrincipal playlistMySongs;
 
-    //Ler e escrever em arquivos de texto
-    public FileOutputStream arquivoO;
-    public PrintWriter pr;
-
-    public FileInputStream arquivoI;
-    public InputStreamReader input;
-    public BufferedReader br;
-
-    //Criar e copiar arquivos
-    public DataOutputStream data;
     @FXML
     public Button btnPlayPause;
     public Button btnStop;
@@ -53,10 +43,10 @@ public class Controller {
 
     public ListView<String> lstvLista = new ListView<String>();
 
-    public MyThread threadBarra;
+    private MyThread threadBarra;
 
-    public boolean isPlaying;
-    public boolean modeOne;
+    private boolean isPlaying;
+    private boolean modeOne;
     public String currentSong;
     public ObservableList<String> currentPlaylist;
 
@@ -64,12 +54,12 @@ public class Controller {
 
     private final String songPath = "resources/songs/";
 
+
     public String africaPath = songPath + "Africa.mp3";
 
     public Controller(){
         isPlaying = false;
         modeOne = true;
-        fileChooser = new FileChooser();
 
         try {
             //Depois ajeitar o trycatch, não sei se fica necessário fazer isso aqui, pode ser no playPause msm...
@@ -81,23 +71,8 @@ public class Controller {
             System.out.println("Caminho não encontrado: " + e);
         }
 
-
-        //Configurando os leitores e escritores de arquivos txt
-        try {
-            arquivoO = new FileOutputStream("");
-            pr = new PrintWriter(arquivoO);
-
-            arquivoI = new FileInputStream("");
-            input = new InputStreamReader(arquivoI);
-            br = new BufferedReader(input);
-        } catch (FileNotFoundException e){
-            System.out.println("Arquivo não encontrado");
-        }
-
-        //Definindo que tipo de arquivos o FileChooser pode pegar
-        //fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Arquivos MP3", "*.mp3"));
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Arquivo MP3", "*.mp3"));
-
+        //Criando a playlist MySongs
+        playlistMySongs = new PlaylistPrincipal();
     }
 
     public void btnPlayPauseOnAction(ActionEvent event) {
@@ -147,18 +122,6 @@ public class Controller {
 
     }
 
-    public void btnAddMusicOnAction(ActionEvent event){
-        File file = fileChooser.showOpenDialog(null);
-        try {
-            Files.copy(file.toPath(), new File(songPath + file.getName()).toPath(), StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e){
-            System.out.println("PICNIC: " + e);
-        } catch (NullPointerException e){
-            System.out.println("Arquivo nulo: " + e);
-        }
-        //System.out.println(file.getName());
-    }
-
     public void btnCreateNewPlaylistOnAction(ActionEvent event){
 
     }
@@ -188,6 +151,10 @@ public class Controller {
             modeOne = true;
         }
     }
+    public void btnAddMusicOnAction(ActionEvent event){
+        playlistMySongs.adicionarMusica();
+        //System.out.println(file.getName());
+    }
 
     public void btnAddMusicToPlaylistOnAction(ActionEvent event){
 
@@ -206,22 +173,6 @@ public class Controller {
     }
 
     //Métodos úteis
-
-    public void definirLeitor(String uri){
-        try {
-            arquivoO = new FileOutputStream(new File(uri).toURI().toString());
-        } catch (FileNotFoundException e){
-            System.out.println("Arquivo não encontrado!");
-        }
-    }
-
-    public void definirEscritor(String uri){
-        try {
-            arquivoI = new FileInputStream(new File(uri).toURI().toString());
-        } catch (FileNotFoundException e){
-            System.out.println("Arquivo não encontrado!");
-        }
-    }
 
     public String getNomeDaMusica(Media media){
         String songName = new File(media.getSource()).getName();

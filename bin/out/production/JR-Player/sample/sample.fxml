@@ -40,7 +40,7 @@
       </Button>
       <Button fx:id="btnAddMusicToPlaylist" alignment="CENTER" layoutX="50.0" layoutY="5.0" mnemonicParsing="false" onAction="#btnAddMusicToPlaylistOnAction" prefHeight="50.0" prefWidth="199.0" text="Adicionar música&#10;a playlist atual&#10;&#10;&#10;" textAlignment="CENTER" visible="false" />
       <Button fx:id="btnRemoveMusicFromPlaylist" alignment="CENTER" layoutX="251.0" layoutY="5.0" mnemonicParsing="false" onAction="#btnRemoveMusicFromPlaylistOnAction" prefHeight="50.0" prefWidth="199.0" text="Remover música &#10;da playlist atual&#10;&#10;&#10;" textAlignment="CENTER" visible="false" />
-      <ToggleButton fx:id="tgbSwitchMode" layoutX="-57.0" layoutY="122.0" mnemonicParsing="false" onAction="#tgbSwitchModeOnAction" prefHeight="40.0" prefWidth="163.0" rotate="-90.0" style="-fx-background-color: #8582ff;" text="Modo">
+      <ToggleButton fx:id="tgbSwitchMode" layoutX="-57.0" layoutY="122.0" mnemonicParsing="false" onAction="#tgbSwitchModeOnAction" prefHeight="40.0" prefWidth="163.0" rotate="-90.0" text="Modo">
          <opaqueInsets>
             <Insets />
          </opaqueInsets></ToggleButton>
