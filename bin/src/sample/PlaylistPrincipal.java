@@ -7,7 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
 public class PlaylistPrincipal {
-    private final String pathArquivo = "resources/songs/";
+    private final String pathArquivo = "resources/playlists/";
     private final String pathCompleto = pathArquivo + "playlistMySongs.txt";
     private final String pathCompletoBackup = pathArquivo + "backup/playlistMySongs.txt";
 
@@ -39,14 +39,19 @@ public class PlaylistPrincipal {
     //A musica vai tanto para o arquivo txt quanto para a pasta songs
     public void adicionarMusica(){
         File arquivo = fileChooser.showOpenDialog(null);
+        boolean nulo = false;
         try {
             Files.copy(arquivo.toPath(), new File(pathArquivo + arquivo.getName()).toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e){
             System.out.println("PICNIC: " + e);
         } catch (NullPointerException e){
+            nulo = true;
             System.out.println("Arquivo nulo: " + e);
         }
-        addMusicToTxt(arquivo.getName());
+
+        if (!nulo){
+            addMusicToTxt(arquivo.getName());
+        }
     }
 
     private void addMusicToTxt(String nomeMusica){
@@ -55,7 +60,7 @@ public class PlaylistPrincipal {
                 escritor.newLine();
                 escritor.close();
             }catch (IOException e){
-                System.out.println("bbb: " + e.getMessage());
+                System.out.println("Erro em adicionar musica para o txt: " + e.getMessage());
             }
     }
 
@@ -70,7 +75,7 @@ public class PlaylistPrincipal {
         } catch (FileNotFoundException e){
             System.out.println("Arquivo de texto não encontrado!");
         } catch (IOException e) {
-            System.out.println("aaa: " + e.getMessage());
+            System.out.println("Erro em definir escritor: " + e.getMessage());
         }
     }
 

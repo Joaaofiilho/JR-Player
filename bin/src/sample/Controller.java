@@ -41,14 +41,15 @@ public class Controller {
 
     public AnchorPane ancpBackground;
 
-    public ListView<String> lstvLista = new ListView<String>();
-
     private MyThread threadBarra;
+
+    public ListView<String> lstvLista = new ListView<String>();
 
     private boolean isPlaying;
     private boolean modeOne;
     public String currentSong;
-    public ObservableList<String> currentPlaylist;
+    public ObservableList<String> currentList;
+    public ArrayList<Playlist> playlistList = new ArrayList();
 
 //    https://docs.oracle.com/javafx/2/ui_controls/list-view.htm
 
@@ -58,6 +59,7 @@ public class Controller {
     public String africaPath = songPath + "Africa.mp3";
 
     public Controller(){
+
         isPlaying = false;
         modeOne = true;
 
@@ -123,11 +125,21 @@ public class Controller {
     }
 
     public void btnCreateNewPlaylistOnAction(ActionEvent event){
-
+        Playlist newPlaylist = new Playlist();
+        newPlaylist.criarPlaylist(playlistList, newPlaylist);
     }
 
     public void btnLoadPlaylistOnAction(ActionEvent event){
+        if (currentList != null){
+            currentList.removeAll();
+        }
+        if (playlistList.size() != 0){
+            for (int i = 0; i < playlistList.size(); i++) {
+                currentList.add(playlistList.get(i).getNome());
+            }
+        }
 
+        lstvLista.setItems(currentList);
     }
 
     public void tgbSwitchModeOnAction(ActionEvent event){
@@ -157,7 +169,7 @@ public class Controller {
     }
 
     public void btnAddMusicToPlaylistOnAction(ActionEvent event){
-
+        System.out.println(playlistList.size());
     }
 
     public void btnRemoveMusicFromPlaylistOnAction(ActionEvent event){
