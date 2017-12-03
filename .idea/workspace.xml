@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db6a472d-ac01-416b-a43f-cec5fc721676" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bin/src/sample/exceptions/MusicaNaoSelecionadaException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bin/src/sample/exceptions/PlaylistNaoSelecionadaException.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/playlists/teste.txt" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/out/production/JR-Player/sample/Controller.class" afterPath="$PROJECT_DIR$/bin/out/production/JR-Player/sample/Controller.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/out/production/JR-Player/sample/Playlist.class" afterPath="$PROJECT_DIR$/bin/out/production/JR-Player/sample/Playlist.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/out/production/JR-Player/sample/PlaylistPrincipal.class" afterPath="$PROJECT_DIR$/bin/out/production/JR-Player/sample/PlaylistPrincipal.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/out/production/JR-Player/sample/sample.fxml" afterPath="$PROJECT_DIR$/bin/out/production/JR-Player/sample/sample.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/src/sample/Controller.java" afterPath="$PROJECT_DIR$/bin/src/sample/Controller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/src/sample/Playlist.java" afterPath="$PROJECT_DIR$/bin/src/sample/Playlist.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/src/sample/PlaylistPrincipal.java" afterPath="$PROJECT_DIR$/bin/src/sample/PlaylistPrincipal.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/src/sample/sample.fxml" afterPath="$PROJECT_DIR$/bin/src/sample/sample.fxml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -475,7 +464,14 @@
       <option name="project" value="LOCAL" />
       <updated>1512148318610</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Várias mudanças (Ler descrição)&#10;. Agora é possível adicionar músicas à uma playlist&#10;. Agora é possível selecionar uma playlist e ver suas músicas&#10;. Agora é possível visualizar todas as músicas existentes&#10;. Botão &quot;Carregar Playlist&quot; retornado&#10;. Layout melhores definidos com o método &quot;setLayout&quot;&#10;. Barra de status atual do sistema adicionada">
+      <created>1512313211923</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1512313211923</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -483,7 +479,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -493,7 +488,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32459426" sideWeight="0.5064865" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32972974" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3258427" sideWeight="0.49351352" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3258427" sideWeight="0.49351352" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958803" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -560,7 +555,8 @@
     <MESSAGE value="Arrumado o caminho do ícone&#10;Descobri como fazer o caminho do ícone. Agora a URI funciona&#10;corretamente." />
     <MESSAGE value="Adicionado os métodos leitores e escritores de arquivos txt" />
     <MESSAGE value="Várias mudanças (Ler descrição)&#10;. Mudada a classe dos escritores e leitores&#10;. Resolução de vários bugs de salvamento de arquivos txt&#10;. Criadas as classes &quot;Playlist&quot; e &quot;PlaylistPrincipal&quot;.&#10;. Tornado possível armazenar as músicas upadas para a playlist MySongs." />
-    <option name="LAST_COMMIT_MESSAGE" value="Várias mudanças (Ler descrição)&#10;. Mudada a classe dos escritores e leitores&#10;. Resolução de vários bugs de salvamento de arquivos txt&#10;. Criadas as classes &quot;Playlist&quot; e &quot;PlaylistPrincipal&quot;.&#10;. Tornado possível armazenar as músicas upadas para a playlist MySongs." />
+    <MESSAGE value="Várias mudanças (Ler descrição)&#10;. Agora é possível adicionar músicas à uma playlist&#10;. Agora é possível selecionar uma playlist e ver suas músicas&#10;. Agora é possível visualizar todas as músicas existentes&#10;. Botão &quot;Carregar Playlist&quot; retornado&#10;. Layout melhores definidos com o método &quot;setLayout&quot;&#10;. Barra de status atual do sistema adicionada" />
+    <option name="LAST_COMMIT_MESSAGE" value="Várias mudanças (Ler descrição)&#10;. Agora é possível adicionar músicas à uma playlist&#10;. Agora é possível selecionar uma playlist e ver suas músicas&#10;. Agora é possível visualizar todas as músicas existentes&#10;. Botão &quot;Carregar Playlist&quot; retornado&#10;. Layout melhores definidos com o método &quot;setLayout&quot;&#10;. Barra de status atual do sistema adicionada" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
