@@ -72,7 +72,7 @@ public class Playlist {
                     }
                 } while (linha != null);
 
-                if (!repeat && (playlistName != null || !playlistName.equals(""))) {
+                if (!repeat && (playlistName != null && !playlistName.equals(""))) {
                     playlist.setNome(playlistName);
                     playlist.escreverNaPlaylistList(playlistName);
                     playlist.escreverNoArray(playlistList, playlist);

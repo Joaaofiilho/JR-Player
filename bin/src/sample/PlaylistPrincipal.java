@@ -44,7 +44,7 @@ public class PlaylistPrincipal {
         } catch (IOException e) {
             System.out.println("PICNIC: " + e);
         } catch (NullPointerException e) {
-            System.out.println("Arquivo nulo: " + e);
+            System.out.println("Você selecionou nenhuma música!");
         }
     }
 

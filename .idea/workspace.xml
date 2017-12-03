@@ -4,8 +4,8 @@
     <list default="true" id="db6a472d-ac01-416b-a43f-cec5fc721676" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/out/production/JR-Player/sample/Controller.class" afterPath="$PROJECT_DIR$/bin/out/production/JR-Player/sample/Controller.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/out/production/JR-Player/sample/sample.fxml" afterPath="$PROJECT_DIR$/bin/out/production/JR-Player/sample/sample.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/src/sample/Controller.java" afterPath="$PROJECT_DIR$/bin/src/sample/Controller.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/src/sample/Playlist.java" afterPath="$PROJECT_DIR$/bin/src/sample/Playlist.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/src/sample/PlaylistPrincipal.java" afterPath="$PROJECT_DIR$/bin/src/sample/PlaylistPrincipal.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,11 +16,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bin/src/sample/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="276" column="5" lean-forward="true" selection-start-line="276" selection-start-column="5" selection-end-line="276" selection-end-column="5" />
+            <state relative-caret-position="94">
+              <caret line="177" column="30" lean-forward="true" selection-start-line="177" selection-start-column="30" selection-end-line="177" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -52,8 +52,8 @@
       <file leaf-file-name="PlaylistPrincipal.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bin/src/sample/PlaylistPrincipal.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="52" column="36" lean-forward="true" selection-start-line="52" selection-start-column="36" selection-end-line="52" selection-end-column="36" />
+            <state relative-caret-position="298">
+              <caret line="46" column="63" lean-forward="false" selection-start-line="46" selection-start-column="63" selection-end-line="46" selection-end-column="63" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -61,11 +61,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Playlist.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Playlist.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bin/src/sample/Playlist.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="969">
-              <caret line="66" column="29" lean-forward="false" selection-start-line="66" selection-start-column="29" selection-end-line="66" selection-end-column="29" />
+            <state relative-caret-position="167">
+              <caret line="76" column="66" lean-forward="true" selection-start-line="76" selection-start-column="66" selection-end-line="76" selection-end-column="66" />
               <folding />
             </state>
           </provider>
@@ -95,7 +95,6 @@
       <find>currentList = FX</find>
       <find>loadDat</find>
       <find>btnCarregarPlaylist</find>
-      <find>addMusicTo</find>
       <find>ConfirmS</find>
       <find>CarregarP</find>
       <find>setVis</find>
@@ -105,6 +104,9 @@
       <find>tgb</find>
       <find>addMus</find>
       <find>Confirm</find>
+      <find>Arquivo nulo:</find>
+      <find>addMusicTo</find>
+      <find>criar</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -130,15 +132,15 @@
         <option value="$PROJECT_DIR$/resources/playlists/playlistList.txt" />
         <option value="$PROJECT_DIR$/bin/src/sample/exceptions/MusicaNaoEncontradaException.java" />
         <option value="$PROJECT_DIR$/resources/playlists/teste.txt" />
-        <option value="$PROJECT_DIR$/resources/playlists/utils/playlistList.txt" />
         <option value="$PROJECT_DIR$/bin/src/sample/exceptions/PlaylistNaoSelecionadaException.java" />
         <option value="$PROJECT_DIR$/resources/playlists/Bacana.txt" />
         <option value="$PROJECT_DIR$/bin/src/sample/exceptions/MusicaNaoSelecionadaException.java" />
-        <option value="$PROJECT_DIR$/bin/src/sample/Playlist.java" />
         <option value="$PROJECT_DIR$/resources/playlists/utils/playlistMySongs.txt" />
         <option value="$PROJECT_DIR$/bin/src/sample/sample.fxml" />
-        <option value="$PROJECT_DIR$/bin/src/sample/PlaylistPrincipal.java" />
         <option value="$PROJECT_DIR$/bin/src/sample/Controller.java" />
+        <option value="$PROJECT_DIR$/bin/src/sample/PlaylistPrincipal.java" />
+        <option value="$PROJECT_DIR$/bin/src/sample/Playlist.java" />
+        <option value="$PROJECT_DIR$/resources/playlists/utils/playlistList.txt" />
       </list>
     </option>
   </component>
@@ -457,7 +459,14 @@
       <option name="project" value="LOCAL" />
       <updated>1512313211923</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="bug fixed&#10;Erro ao executar o programa">
+      <created>1512330969537</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1512330969537</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -543,7 +552,8 @@
     <MESSAGE value="Adicionado os métodos leitores e escritores de arquivos txt" />
     <MESSAGE value="Várias mudanças (Ler descrição)&#10;. Mudada a classe dos escritores e leitores&#10;. Resolução de vários bugs de salvamento de arquivos txt&#10;. Criadas as classes &quot;Playlist&quot; e &quot;PlaylistPrincipal&quot;.&#10;. Tornado possível armazenar as músicas upadas para a playlist MySongs." />
     <MESSAGE value="Várias mudanças (Ler descrição)&#10;. Agora é possível adicionar músicas à uma playlist&#10;. Agora é possível selecionar uma playlist e ver suas músicas&#10;. Agora é possível visualizar todas as músicas existentes&#10;. Botão &quot;Carregar Playlist&quot; retornado&#10;. Layout melhores definidos com o método &quot;setLayout&quot;&#10;. Barra de status atual do sistema adicionada" />
-    <option name="LAST_COMMIT_MESSAGE" value="Várias mudanças (Ler descrição)&#10;. Agora é possível adicionar músicas à uma playlist&#10;. Agora é possível selecionar uma playlist e ver suas músicas&#10;. Agora é possível visualizar todas as músicas existentes&#10;. Botão &quot;Carregar Playlist&quot; retornado&#10;. Layout melhores definidos com o método &quot;setLayout&quot;&#10;. Barra de status atual do sistema adicionada" />
+    <MESSAGE value="bug fixed&#10;Erro ao executar o programa" />
+    <option name="LAST_COMMIT_MESSAGE" value="bug fixed&#10;Erro ao executar o programa" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -884,32 +894,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/playlists/utils/playlistList.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/src/sample/Playlist.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="969">
-          <caret line="66" column="29" lean-forward="false" selection-start-line="66" selection-start-column="29" selection-end-line="66" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bin/src/sample/exceptions/PlaylistNaoSelecionadaException.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="26" lean-forward="true" selection-start-line="0" selection-start-column="26" selection-end-line="0" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/playlists/utils/playlistMySongs.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -935,8 +923,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bin/src/sample/PlaylistPrincipal.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="52" column="36" lean-forward="true" selection-start-line="52" selection-start-column="36" selection-end-line="52" selection-end-column="36" />
+        <state relative-caret-position="298">
+          <caret line="46" column="63" lean-forward="false" selection-start-line="46" selection-start-column="63" selection-end-line="46" selection-end-column="63" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -945,8 +933,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bin/src/sample/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="276" column="5" lean-forward="true" selection-start-line="276" selection-start-column="5" selection-end-line="276" selection-end-column="5" />
+        <state relative-caret-position="94">
+          <caret line="177" column="30" lean-forward="true" selection-start-line="177" selection-start-column="30" selection-end-line="177" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/playlists/utils/playlistMySongs.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/playlists/utils/playlistList.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/src/sample/Playlist.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="76" column="66" lean-forward="true" selection-start-line="76" selection-start-column="66" selection-end-line="76" selection-end-column="66" />
           <folding />
         </state>
       </provider>
