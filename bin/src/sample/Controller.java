@@ -5,8 +5,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
+import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
 import sample.exceptions.MusicaNaoEncontradaException;
 import sample.exceptions.MusicaNaoSelecionadaException;
@@ -15,7 +18,6 @@ import sample.exceptions.PlaylistNaoSelecionadaException;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 public class Controller {
@@ -31,12 +33,14 @@ public class Controller {
     public Button btnBackward;
     public Button btnAddMusic;
     public Button btnCreateNewPlaylist;
-    public ToggleButton tgbSwitchMode;
-    public Button btnCarregarPlaylist;
+    public Button btnLoadPlaylist;
     public Button btnAddMusicToPlaylist = new Button();
     public Button btnRemoveMusicFromPlaylist = new Button();
     public Button btnOrder;
     public Button btnConfirmSong;
+    public Button btnRemovePlaylist;
+
+    public ToggleButton tgbSwitchMode;
 
     public Slider sldProgressBar;
     public Slider sldVolumeBar;
@@ -48,11 +52,11 @@ public class Controller {
 
     private MyThread threadBarra;
 
-    public ListView<String> lstvLista;
+    public ListView<String> lstvLista = new ListView<>();
 
     private boolean isPlaying;
-    private boolean modeOne;
     public boolean alphabeticOrder;
+    public boolean songSelected;
     public String currentSong;
     private ObservableList<String> currentList;
     private ArrayList<Playlist> playlistList;
@@ -74,39 +78,37 @@ public class Controller {
     public Controller() {
 
         isPlaying = false;
-        modeOne = true;
         alphabeticOrder = true;
+        songSelected = false;
 
-        try {
-            //Depois ajeitar o trycatch, não sei se fica necessário fazer isso aqui, pode ser no playPause msm...
-            //Se bem que seria util você colocar uma música inicial p/ prevenção de erros
-            //Ou carregar a pasta songs em vez de alguma playlist
-//            media = new Media(new File(africaPath).toURI().toString());
-//            mediaPlayer = new MediaPlayer(media);
-        } catch (Exception e) {
-            System.out.println("Caminho não encontrado: " + e);
-        }
         //Criando a playlist MySongs
         playlistMySongs = new PlaylistPrincipal();
         playlistList = new ArrayList<>();
-        currentList = FXCollections.observableArrayList();
         songList = new ArrayList<>();
+        currentList = FXCollections.observableArrayList(songList);
         loadDataFromTxt();
-        //setListView(songList);
-        /*
-        ListView<String> list = new ListView<String>();
-ObservableList<String> items =FXCollections.observableArrayList (
-    "Single", "Double", "Suite", "Family App");
-list.setItems(items);
-         */
+
+    }
+
+    public void initialize(){
+        tgbSwitchMode.fire();
+        tgbSwitchMode.fire();
     }
 
     public void btnPlayPauseOnAction(ActionEvent event) {
 
         try {
-            //Quando ele seta a musica aparentemente o programa comeca a tocar musica em cima de
-            //musica
-            setMusica(getItemSelecionadoList());
+            if (!songSelected){
+                setSong(getSelectedListItem());
+                songSelected = true;
+            }
+            if (!getSelectedListItem().equalsIgnoreCase(getNomeDaMusica(media))){
+                lblDisplay.setText("");
+                mediaPlayer.stop();
+                setSong(getSelectedListItem());
+                songSelected = true;
+            }
+
             lblDisplay.setText("Now playing: " + getNomeDaMusica(media));
 
             if (isPlaying) {
@@ -115,27 +117,28 @@ list.setItems(items);
             } else {
                 mediaPlayer.play();
                 isPlaying = true;
+
                 threadBarra = new MyThread(this, mediaPlayer, sldProgressBar);
                 threadBarra.start();
             }
-//            if (isPlaying && getItemSelecionadoList().equals(currentSong)) {
+//            if (isPlaying && getSelectedListItem().equals(currentSong)) {
 //                System.out.println("aaaaaaaa");
 //                mediaPlayer.pause();
 //                isPlaying = false;
 //            }
 //
-//            if(isPlaying && !getItemSelecionadoList().equals(currentSong)){
+//            if(isPlaying && !getSelectedListItem().equals(currentSong)){
 //                System.out.println("Teste!");
 //                mediaPlayer.stop();
 //                threadBarra.stop();
 //
-//                setMusica(getItemSelecionadoList());
+//                setSong(getSelectedListItem());
 //                lblDisplay.setText("Now playing: " + getNomeDaMusica(media));
 //
 //                mediaPlayer.play();
 //                isPlaying = true;
 //            }
-//            if(!isPlaying && getItemSelecionadoList().equals(currentSong)){
+//            if(!isPlaying && getSelectedListItem().equals(currentSong)){
 //                System.out.println("bbbbbbbbbb");
 //                mediaPlayer.play();
 //                isPlaying = true;
@@ -146,11 +149,14 @@ list.setItems(items);
 
         } catch (MusicaNaoEncontradaException e) {
             System.out.println("Música não encontrada: " + e);
+        } catch (MediaException e){
+            System.out.println("Música não selecionada: " + e);
         }
     }
 
     public void btnStopOnAction(ActionEvent event) {
         try {
+            songSelected = false;
             media = null;
             mediaPlayer.stop();
             lblDisplay.setText(" ");
@@ -162,17 +168,15 @@ list.setItems(items);
     }
 
     public void btnForwardOnAction(ActionEvent event) {
-//        media = new Media(new File(fileChooser.showOpenDialog());
-//        mediaPlayer = new MediaPlayer(media);
     }
 
     public void btnBackwardOnAction(ActionEvent event) {
-
     }
 
     public void btnCreateNewPlaylistOnAction(ActionEvent event) {
         Playlist newPlaylist = new Playlist();
         newPlaylist.criarPlaylist(playlistList, newPlaylist);
+        setListViewPlaylists(playlistList);
         ordenarTxt(playlistListPath);
     }
 
@@ -211,10 +215,19 @@ list.setItems(items);
         }while (linha != null);
     }
 
-    public void btnCarregarPlaylistOnAction(ActionEvent event){
-        setListViewSongsFromPlaylist(getItemSelecionadoList());
-        setLayout(1);
-        lblStatus.setText("Playlist atual: " + selectedPlaylist.getNome());
+    public void btnCarregarPlaylistOnAction(ActionEvent event) {
+        if (getSelectedListItem().equalsIgnoreCase("") || getSelectedListItem().equalsIgnoreCase(" ")) {
+            setListViewPlaylists(playlistList);
+            System.out.println("Nada selecionado!");
+        } else {
+            setListViewSongsFromPlaylist(getSelectedListItem());
+            setLayout(1);
+            lblStatus.setText("Playlist atual: " + selectedPlaylist.getNome());
+            tgbSwitchMode.setSelected(true);
+
+            btnAddMusicToPlaylist.setVisible(true);
+            btnRemoveMusicFromPlaylist.setVisible(true);
+        }
     }
 
     public void btnAddMusicToPlaylistOnAction(ActionEvent event) {
@@ -227,7 +240,7 @@ list.setItems(items);
 
     public void btnConfirmSongOnAction(ActionEvent event){
         try {
-            selectedPlaylist.adicionarMusica(getItemSelecionadoList());
+            selectedPlaylist.adicionarMusica(getSelectedListItem());
         }catch (MusicaNaoSelecionadaException e){
             System.out.println("Nenhuma musica esta selecionada! Por favor, selecione!");
         }
@@ -246,14 +259,16 @@ list.setItems(items);
     }
 
     public void btnOrderOnAction(ActionEvent event) {
-        if (alphabeticOrder) {
-            FXCollections.sort(currentList, String::compareTo);
+        if (tgbSwitchMode.isSelected()){
+            if (alphabeticOrder && tgbSwitchMode.isSelected()) {
+                FXCollections.sort(currentList, String::compareTo);
 
-            alphabeticOrder = false;
-        } else {
-            FXCollections.shuffle(currentList);
+                alphabeticOrder = false;
+            } else if (tgbSwitchMode.isSelected()) {
+                FXCollections.shuffle(currentList);
 
-            alphabeticOrder = true;
+                alphabeticOrder = true;
+            }
         }
     }
 
@@ -266,9 +281,6 @@ list.setItems(items);
         System.out.println("Teste");
     }
 
-    public void lstvListaOnDragDone(ActionEvent event) {
-        System.out.println("Teste");
-    }
     //Métodos úteis
 
     public String getNomeDaMusica(Media media) {
@@ -347,8 +359,8 @@ list.setItems(items);
         lstvLista.setItems(currentList);
     }
 
-    public void setMusica(String nomeMusica) throws MusicaNaoEncontradaException {
-        nomeMusica = getItemSelecionadoList();
+    public void setSong(String nomeMusica) throws MusicaNaoEncontradaException {
+        nomeMusica = getSelectedListItem();
         File arquivo = new File(songPath + nomeMusica);
         if (!arquivo.exists()) {
             throw new MusicaNaoEncontradaException();
@@ -359,7 +371,7 @@ list.setItems(items);
         currentSong = nomeMusica;
     }
 
-    private String getItemSelecionadoList() {
+    private String getSelectedListItem() {
         String nomeMusica = lstvLista.getSelectionModel().getSelectedItems().toString();
         nomeMusica = nomeMusica.replaceAll("\\[", "");
         nomeMusica = nomeMusica.replace("]", "");
@@ -434,22 +446,21 @@ list.setItems(items);
     }
 
     public void setLayout(int num){
+        btnAddMusicToPlaylist.setVisible(false);
+        btnRemoveMusicFromPlaylist.setVisible(false);
+
         switch (num){
             case 1:
                 btnAddMusic.setVisible(false);
                 btnCreateNewPlaylist.setVisible(false);
-                btnCarregarPlaylist.setVisible(false);
-
-                btnAddMusicToPlaylist.setVisible(true);
-                btnRemoveMusicFromPlaylist.setVisible(true);
+                btnLoadPlaylist.setVisible(false);
+                btnRemovePlaylist.setVisible(false);
                 break;
             case 2:
                 btnAddMusic.setVisible(true);
                 btnCreateNewPlaylist.setVisible(true);
-                btnCarregarPlaylist.setVisible(true);
-
-                btnAddMusicToPlaylist.setVisible(false);
-                btnRemoveMusicFromPlaylist.setVisible(false);
+                btnLoadPlaylist.setVisible(true);
+                btnRemovePlaylist.setVisible(true);
                 break;
         }
     }
@@ -457,7 +468,7 @@ list.setItems(items);
     public void adicionarMusicaToPlaylist() throws PlaylistNaoSelecionadaException{
         if(selectedPlaylist == null){
             throw new PlaylistNaoSelecionadaException();
-        }else{
+        } else {
             setListViewSongs(songList);
             btnConfirmSong.setVisible(true);
             tgbSwitchMode.setDisable(true);

@@ -40,12 +40,12 @@ public class PlaylistPrincipal {
         File arquivo = fileChooser.showOpenDialog(null);
         try {
             Files.copy(arquivo.toPath(), new File(pathSongs + arquivo.getName()).toPath(), StandardCopyOption.REPLACE_EXISTING);
+            addMusicToTxt(arquivo.getName());
         } catch (IOException e) {
             System.out.println("PICNIC: " + e);
         } catch (NullPointerException e) {
             System.out.println("Arquivo nulo: " + e);
         }
-        addMusicToTxt(arquivo.getName());
     }
 
     private void addMusicToTxt(String nomeMusica) {
