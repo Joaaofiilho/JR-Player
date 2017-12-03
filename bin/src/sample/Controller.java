@@ -30,8 +30,7 @@ public class Controller {
     public ToggleButton tgbSwitchMode;
     public Button btnAddMusicToPlaylist = new Button();
     public Button btnRemoveMusicFromPlaylist = new Button();
-    public Button btnShufflePlaylist;
-    public Button btnAlphabeticSortPlaylist;
+    public Button btnOrder;
 
     public Slider sldProgressBar;
     public Slider sldVolumeBar;
@@ -46,6 +45,7 @@ public class Controller {
 
     private boolean isPlaying;
     private boolean modeOne;
+    public boolean alphabeticOrder;
     public String currentSong;
     private ObservableList<String> currentList;
     private ArrayList<Playlist> playlistList;
@@ -68,6 +68,7 @@ public class Controller {
 
         isPlaying = false;
         modeOne = true;
+        alphabeticOrder = true;
 
         try {
             //Depois ajeitar o trycatch, não sei se fica necessário fazer isso aqui, pode ser no playPause msm...
@@ -84,7 +85,7 @@ public class Controller {
         playlistList = new ArrayList<>();
         currentList = FXCollections.observableArrayList();
         songList = new ArrayList<>();
-        loadDataFromTxt();
+//        loadDataFromTxt();
         //setListView(songList);
         /*
         ListView<String> list = new ListView<String>();
@@ -196,19 +197,22 @@ list.setItems(items);
     public void btnAddMusicToPlaylistOnAction(ActionEvent event) {
 //        currentList =
 //        selectedPlaylist.adicionarMusica();
-        //System.out.println(playlistList.size());
     }
 
     public void btnRemoveMusicFromPlaylistOnAction(ActionEvent event) {
 
     }
 
-    public void btnShufflePlaylistOnAction(ActionEvent event) {
+    public void btnOrderOnAction(ActionEvent event) {
+        if (alphabeticOrder){
+            FXCollections.sort(currentList, String::compareTo);
 
-    }
+            alphabeticOrder = false;
+        } else {
+            FXCollections.shuffle(currentList);
 
-    public void btnAlphabeticSortPlaylistOnAction(ActionEvent event) {
-
+            alphabeticOrder = true;
+        }
     }
 
     public void lstvListaOnEditStart(ActionEvent event) {
