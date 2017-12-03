@@ -7,9 +7,8 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
 public class PlaylistPrincipal {
-    private final String pathArquivo = "resources/playlists/";
-    private final String pathCompleto = pathArquivo + "playlistMySongs.txt";
-    private final String pathCompletoBackup = pathArquivo + "backup/playlistMySongs.txt";
+    private final String pathSongs = "resources/songs/";
+    private final String pathCompleto = "resources/playlists/utils/playlistMySongs.txt";
 
     private String nome;
 
@@ -41,7 +40,7 @@ public class PlaylistPrincipal {
         File arquivo = fileChooser.showOpenDialog(null);
         boolean nulo = false;
         try {
-            Files.copy(arquivo.toPath(), new File(pathArquivo + arquivo.getName()).toPath(), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(arquivo.toPath(), new File(pathSongs + arquivo.getName()).toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e){
             System.out.println("PICNIC: " + e);
         } catch (NullPointerException e){
