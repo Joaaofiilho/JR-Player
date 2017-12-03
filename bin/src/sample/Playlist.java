@@ -1,5 +1,6 @@
 package sample;
 
+import sample.exceptions.MusicaJaExisteException;
 import sample.exceptions.MusicaNaoEncontradaException;
 import sample.exceptions.MusicaNaoSelecionadaException;
 
@@ -71,7 +72,7 @@ public class Playlist {
                         repeat = true;
                     }
                 } while (linha != null);
-
+                leitor.close();
                 if (!repeat && (playlistName != null && !playlistName.equals(""))) {
                     playlist.setNome(playlistName);
                     playlist.escreverNaPlaylistList(playlistName);
@@ -85,10 +86,14 @@ public class Playlist {
 //                    }
                     repeat = false;
                 }
+
+                if (playlistName != null || !playlistName.equals("")) {
+                    System.out.println("A playlist não pode ter nome vazio! Playlist não criada.");
+                }
             } catch (NullPointerException e) {
-                System.out.println("Nome nulo, playlist nao criada: " + e);
+                System.out.println("O nome da playlist não pode ser nulo!");
             } catch (Exception e) {
-                System.out.println("Playlist ja existe: " + e);
+                System.out.println("Já existe uma playlist com este nome!");
             }
         } while (repeat);
     }
@@ -121,10 +126,12 @@ public class Playlist {
         Collections.sort(songNames);
     }
 
-    public void adicionarMusica(String nomeMusica) throws MusicaNaoSelecionadaException{
-        if(nomeMusica == null || nomeMusica.equals("")){
+    public void adicionarMusica(String nomeMusica) throws MusicaNaoSelecionadaException, MusicaJaExisteException {
+        if (nomeMusica == null || nomeMusica.equals("")) {
             throw new MusicaNaoSelecionadaException();
-        }else {
+        } else if (musicAlreadyExists(nomeMusica)) {
+            throw new MusicaJaExisteException();
+        } else {
             definirEscritor(pathPlaylists + this.getNome() + ".txt");
             definirLeitor(pathPlaylists + this.getNome() + ".txt");
             try {
@@ -135,6 +142,65 @@ public class Playlist {
                 System.out.println("Erro ao adicionar uma musica na playlist");
             }
         }
+
+    }
+
+    private boolean musicAlreadyExists(String nomeMusica) {
+        definirLeitor(pathPlaylists + this.getNome() + ".txt");
+        String linha;
+        try {
+            do {
+                linha = leitor.readLine();
+                if (linha != null && linha.equalsIgnoreCase(nomeMusica)) return true;
+            } while (linha != null);
+        } catch (IOException e) {
+            System.out.println("Erro ao verificar se a música já existe na playlist!");
+        }
+        return false;
+    }
+
+    public void removeSong(String nomeMusica) {
+        definirLeitor(pathPlaylists + this.getNome() + ".txt");
+
+        String linha = "";
+        ArrayList<String> novoTxt = new ArrayList<>();
+        do {
+            try {
+                linha = leitor.readLine();
+                if (linha != null && !linha.equalsIgnoreCase(nomeMusica)) {
+                    novoTxt.add(linha);
+                }
+            } catch (IOException e) {
+                System.out.println("Erro ao remover a música da playlist! (Erro: 1)");
+            }
+        } while (linha != null);
+        try {
+            leitor.close();
+            fileWriter = new FileWriter(pathPlaylists + this.getNome() + ".txt", false);
+            escritor = new BufferedWriter(fileWriter);
+
+            for (String aNovoTxt : novoTxt) {
+                escritor.write(aNovoTxt);
+                escritor.newLine();
+            }
+            escritor.close();
+        } catch (IOException e) {
+            System.out.println("Erri ao remover a música da playlist (Erro: 2)");
+        }
+
+    }
+
+    public String returnFullPath() {
+        return pathPlaylists + this.getNome() + ".txt";
+    }
+
+    public ArrayList<String> getSongNames(){
+        return songNames;
+    }
+
+    public int getIndexOfSong(String songNameToSearch) throws MusicaNaoEncontradaException{
+        for (int i = 0; i < songNames.size(); i++) if(songNames.get(i).equalsIgnoreCase(songNameToSearch)) return i;
+        throw new MusicaNaoEncontradaException();
     }
 
 //    public void setlistView(ArrayList<Playlist> playlistList){

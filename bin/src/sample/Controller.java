@@ -11,12 +11,14 @@ import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
+import sample.exceptions.MusicaJaExisteException;
 import sample.exceptions.MusicaNaoEncontradaException;
 import sample.exceptions.MusicaNaoSelecionadaException;
 import sample.exceptions.PlaylistNaoSelecionadaException;
 
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -39,6 +41,7 @@ public class Controller {
     public Button btnOrder;
     public Button btnConfirmSong;
     public Button btnRemovePlaylist;
+    public Button btnCancelSong;
 
     public ToggleButton tgbSwitchMode;
 
@@ -90,26 +93,23 @@ public class Controller {
 
     }
 
-    public void initialize(){
+    public void initialize() {
         tgbSwitchMode.fire();
         tgbSwitchMode.fire();
     }
 
     public void btnPlayPauseOnAction(ActionEvent event) {
-
         try {
-            if (!songSelected){
+            if (!songSelected) {
                 setSong(getSelectedListItem());
                 songSelected = true;
             }
-            if (!getSelectedListItem().equalsIgnoreCase(getNomeDaMusica(media))){
+            if (!getSelectedListItem().equalsIgnoreCase(getNomeDaMusica(media))) {
                 lblDisplay.setText("");
                 mediaPlayer.stop();
                 setSong(getSelectedListItem());
                 songSelected = true;
             }
-
-            lblDisplay.setText("Now playing: " + getNomeDaMusica(media));
 
             if (isPlaying) {
                 mediaPlayer.pause();
@@ -117,9 +117,9 @@ public class Controller {
             } else {
                 mediaPlayer.play();
                 isPlaying = true;
-
                 threadBarra = new MyThread(this, mediaPlayer, sldProgressBar);
                 threadBarra.start();
+                lblDisplay.setText("Now playing: " + getNomeDaMusica(media).substring(0, getNomeDaMusica(media).length() - 4));
             }
 //            if (isPlaying && getSelectedListItem().equals(currentSong)) {
 //                System.out.println("aaaaaaaa");
@@ -148,9 +148,9 @@ public class Controller {
 
 
         } catch (MusicaNaoEncontradaException e) {
-            System.out.println("Música não encontrada: " + e);
-        } catch (MediaException e){
-            System.out.println("Música não selecionada: " + e);
+            System.out.println("Música não foi encontrada!");
+        } catch (MediaException e) {
+            System.out.println("Nenhuma música foi selecionada!");
         }
     }
 
@@ -162,15 +162,76 @@ public class Controller {
             lblDisplay.setText(" ");
             sldProgressBar.setValue(0);
         } catch (Exception e) {
-            System.out.println("Nenhuma música está tocando: " + e);
+            System.out.println("Nenhuma música está tocando!");
         }
         isPlaying = false;
     }
 
     public void btnForwardOnAction(ActionEvent event) {
+        try {
+            avancarMusica(currentSong);
+        }catch (PlaylistNaoSelecionadaException e){
+            System.out.println("Nenhuma playlist foi selecionada!");
+        }catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Não há uma música posterior!");
+        }
     }
 
     public void btnBackwardOnAction(ActionEvent event) {
+        try {
+            voltarMusica(currentSong);
+            threadBarra = new MyThread(this, mediaPlayer, sldProgressBar);
+            threadBarra.start();
+            mediaPlayer.play();
+        }catch (PlaylistNaoSelecionadaException e){
+            System.out.println("Nenhuma playlist foi selecionada!");
+        }catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Não há uma música anterior!");
+        }
+    }
+
+    public void avancarMusica(String nomeMusica) throws PlaylistNaoSelecionadaException, ArrayIndexOutOfBoundsException{
+        if(lstvLista.getItems() == null){
+            throw new PlaylistNaoSelecionadaException();
+        }else{
+            for (int i = 0; i < lstvLista.getItems().size(); i++) {
+                try {
+                    //Aqui eu pego a lstvView inteira e vejo qual a musica anterior e seto o som com base no nome da
+                    //musica que eu achei
+                    if (getSelectedListItem().equalsIgnoreCase(nomeMusica)) {
+                        if(!(lstvLista.getSelectionModel().getSelectedIndex() == lstvLista.getItems().size()-1)) {
+                            mediaPlayer.stop();
+                            setSong(lstvLista.getItems().get(lstvLista.getSelectionModel().getSelectedIndex() + 1));
+                        }
+                    }else throw new ArrayIndexOutOfBoundsException();
+                }catch (MusicaNaoEncontradaException e){
+                    System.out.println("Não existe uma música posterior!");
+                }
+            }
+            isPlaying = false;
+        }
+    }
+
+    public void voltarMusica(String nomeMusica) throws PlaylistNaoSelecionadaException, ArrayIndexOutOfBoundsException{
+        if(lstvLista.getItems() == null){
+            throw new PlaylistNaoSelecionadaException();
+        }else{
+            for (int i = 0; i < lstvLista.getItems().size(); i++) {
+                try {
+                    //Aqui eu pego a lstvView inteira e vejo qual a musica anterior e seto o som com base no nome da
+                    //musica que eu achei
+                    if (getSelectedListItem().equalsIgnoreCase(nomeMusica)) {
+                        if(lstvLista.getSelectionModel().getSelectedIndex() > 0) {
+                            mediaPlayer.stop();
+                            setSong(lstvLista.getItems().get(lstvLista.getSelectionModel().getSelectedIndex() - 1));
+                        }
+                    }else throw new ArrayIndexOutOfBoundsException();
+                }catch (MusicaNaoEncontradaException e){
+                    System.out.println("Não existe uma música anterior!");
+                }
+            }
+            isPlaying = false;
+        }
     }
 
     public void btnCreateNewPlaylistOnAction(ActionEvent event) {
@@ -199,28 +260,51 @@ public class Controller {
         //System.out.println(file.getName());
     }
 
-    public void atualizarSongList(){
+    public void atualizarSongList() {
         definirLeitor(songListPath);
         String linha = "";
         songList = new ArrayList<>();
-        do{
+        do {
             try {
                 linha = leitor.readLine();
                 if (linha != null) {
                     songList.add(linha);
                 }
-            }catch (IOException e){
+            } catch (IOException e) {
                 System.out.println("Erro ao atualizar o songList.");
             }
-        }while (linha != null);
+        } while (linha != null);
     }
+
+    public void atualizarPlaylistList() {
+        definirLeitor(playlistListPath);
+        playlistList = new ArrayList<>();
+        String linha;
+        try {
+            do {
+                linha = leitor.readLine();
+                if (linha != null) {
+                    Playlist playlist = new Playlist();
+                    playlist.setNome(linha);
+                    playlist.loadSongsFromTxt();
+                    playlistList.add(playlist);
+                }
+            } while (linha != null);
+        } catch (IOException e) {
+            System.out.println("Erro ao ler o arquivo txt da playlist para removê-la!");
+        }
+
+    }
+
 
     public void btnCarregarPlaylistOnAction(ActionEvent event) {
         if (getSelectedListItem().equalsIgnoreCase("") || getSelectedListItem().equalsIgnoreCase(" ")) {
+            selectedPlaylist = loadPlaylist(getSelectedListItem());
             setListViewPlaylists(playlistList);
             System.out.println("Nada selecionado!");
         } else {
             setListViewSongsFromPlaylist(getSelectedListItem());
+
             setLayout(1);
             lblStatus.setText("Playlist atual: " + selectedPlaylist.getNome());
             tgbSwitchMode.setSelected(true);
@@ -233,33 +317,54 @@ public class Controller {
     public void btnAddMusicToPlaylistOnAction(ActionEvent event) {
         try {
             adicionarMusicaToPlaylist();
-        }catch (PlaylistNaoSelecionadaException e){
+        } catch (PlaylistNaoSelecionadaException e) {
             System.out.println("Nao ha uma playlist selecionada!");
         }
     }
 
-    public void btnConfirmSongOnAction(ActionEvent event){
+    public void btnConfirmSongOnAction(ActionEvent event) {
         try {
             selectedPlaylist.adicionarMusica(getSelectedListItem());
-        }catch (MusicaNaoSelecionadaException e){
+        } catch (MusicaNaoSelecionadaException e) {
             System.out.println("Nenhuma musica esta selecionada! Por favor, selecione!");
+        } catch (MusicaJaExisteException e) {
+            System.out.println("A música selecionada já existe na playlist!");
         }
         ordenarTxt(playlistsPath + selectedPlaylist.getNome());
         lblStatus.setText("Playlist atual: " + selectedPlaylist.getNome());
         setListViewSongsFromPlaylist(selectedPlaylist.getNome());
 
         btnConfirmSong.setVisible(false);
+        btnCancelSong.setVisible(false);
         tgbSwitchMode.setDisable(false);
         btnAddMusicToPlaylist.setDisable(false);
         btnRemoveMusicFromPlaylist.setDisable(false);
+        btnPlayPause.setDisable(false);
+        btnBackward.setDisable(false);
+        btnForward.setDisable(false);
+        btnStop.setDisable(false);
+        btnOrder.setDisable(false);
     }
 
     public void btnRemoveMusicFromPlaylistOnAction(ActionEvent event) {
+        try {
+            removerMusicaDaPlaylist();
+            setListViewSongsFromPlaylist(selectedPlaylist.getNome());
+        } catch (PlaylistNaoSelecionadaException e) {
+            System.out.println("Nenhuma playlist carregada!");
+        }
+    }
 
+    public void removerMusicaDaPlaylist() throws PlaylistNaoSelecionadaException {
+        if (selectedPlaylist == null) {
+            throw new PlaylistNaoSelecionadaException();
+        } else {
+            selectedPlaylist.removeSong(getSelectedListItem());
+        }
     }
 
     public void btnOrderOnAction(ActionEvent event) {
-        if (tgbSwitchMode.isSelected()){
+        if (tgbSwitchMode.isSelected()) {
             if (alphabeticOrder && tgbSwitchMode.isSelected()) {
                 FXCollections.sort(currentList, String::compareTo);
 
@@ -281,15 +386,79 @@ public class Controller {
         System.out.println("Teste");
     }
 
-    public void btnRemovePlaylistOnAction(ActionEvent event){
-
+    public void btnRemovePlaylistOnAction(ActionEvent event) {
+        try {
+            selectedPlaylist = loadPlaylist(getSelectedListItem());
+            removePlaylist(getSelectedListItem());
+            atualizarPlaylistList();
+            setListViewPlaylists(playlistList);
+        } catch (PlaylistNaoSelecionadaException e) {
+            System.out.println("Nenhuma playlist foi selecionada!");
+        }
     }
+
+    public void removePlaylist(String nomePlaylist) throws PlaylistNaoSelecionadaException {
+        if (selectedPlaylist == null) {
+            throw new PlaylistNaoSelecionadaException();
+        } else {
+            definirLeitor(playlistListPath);
+            ArrayList<String> newPlaylistList = new ArrayList<>();
+            String linha;
+            try {
+                do {
+                    linha = leitor.readLine();
+                    if (linha != null && !linha.equalsIgnoreCase(nomePlaylist)) {
+                        newPlaylistList.add(linha);
+                    }
+                } while (linha != null);
+                leitor.close();
+            } catch (IOException e) {
+                System.out.println("Erro ao ler o arquivo txt da playlist para removê-la!");
+            }
+            try {
+                fileWriter = new FileWriter(playlistListPath, false);
+                escritor = new BufferedWriter(fileWriter);
+
+                for (String playlistName :
+                        newPlaylistList) {
+                    escritor.write(playlistName);
+                    escritor.newLine();
+                }
+                escritor.close();
+            } catch (IOException e) {
+                System.out.println("Erro ao escrever no arquivo txt da playlist para removê-la!");
+            }
+            escritor = new BufferedWriter(fileWriter);
+
+            try{
+                System.out.println(playlistsPath + nomePlaylist + ".txt");
+                Files.delete(new File(playlistsPath + nomePlaylist + ".txt").toPath());
+            }catch (IOException e){
+                System.out.println("Erro ao deletar o arquivo txt da pasta de playlists!");
+            }
+        }
+    }
+
+    public void btnCancelSongOnAction(ActionEvent event) {
+        btnConfirmSong.setVisible(false);
+        btnCancelSong.setVisible(false);
+        tgbSwitchMode.setDisable(false);
+        btnAddMusicToPlaylist.setDisable(false);
+        btnRemoveMusicFromPlaylist.setDisable(false);
+        btnPlayPause.setDisable(false);
+        btnBackward.setDisable(false);
+        btnForward.setDisable(false);
+        btnStop.setDisable(false);
+        btnOrder.setDisable(false);
+
+        setListViewSongsFromPlaylist(selectedPlaylist.getNome());
+    }
+
 
     //Métodos úteis
 
     public String getNomeDaMusica(Media media) {
-        String songName = new File(media.getSource()).getName();
-        return songName.substring(0, songName.length() - 4);
+        return new File(media.getSource()).getName();
     }
 
     public boolean isPlaying() {
@@ -301,7 +470,7 @@ public class Controller {
         File arquivo = new File(playlistsPath);
         File files[] = arquivo.listFiles();
         for (int i = 0; i < files.length; i++) {
-            if(files[i].getName().endsWith(".txt")) {
+            if (files[i].getName().endsWith(".txt")) {
                 String nomePlaylist = files[i].getName().substring(0, files[i].getName().length() - 4);
                 //A pasta 'utils' entra no meio dos arquivos. Apenas criei a excecao
                 if (!nomePlaylist.equals("u")) {
@@ -371,7 +540,6 @@ public class Controller {
         }
         media = new Media(arquivo.toURI().toString());
         mediaPlayer = new MediaPlayer(media);
-
         currentSong = nomeMusica;
     }
 
@@ -382,21 +550,21 @@ public class Controller {
         return nomeMusica;
     }
 
-    private void setListViewSongsFromPlaylist(String nomePlaylist){
+    private void setListViewSongsFromPlaylist(String nomePlaylist) {
         definirLeitor(playlistsPath + nomePlaylist + ".txt");
         ArrayList<String> songsNames = new ArrayList<>();
 
         String linha = "";
-        do{
-            try{
+        do {
+            try {
                 linha = leitor.readLine();
-                if(linha != null){
+                if (linha != null) {
                     songsNames.add(linha);
                 }
-            }catch (IOException e){
+            } catch (IOException e) {
                 System.out.println("Erro ao mudar a listview para exibir as musicas da playlist");
             }
-        }while (linha != null);
+        } while (linha != null);
         currentList = FXCollections.observableArrayList(songsNames);
         selectedPlaylist = loadPlaylist(nomePlaylist);
         lstvLista.setItems(currentList);
@@ -436,24 +604,23 @@ public class Controller {
         } catch (IOException e) {
             System.out.println("Impossivel escrever no arquivo de texto para organiza-lo");
         }
-        System.out.println("Organizado!");
     }
 
     //Setar a playlist selecionada ao clicar em "Carregar playlist"
-    private Playlist loadPlaylist(String playlistName){
+    private Playlist loadPlaylist(String playlistName) {
         for (int i = 0; i < playlistList.size(); i++) {
-            if(playlistList.get(i).getNome().equalsIgnoreCase(playlistName)){
+            if (playlistList.get(i).getNome().equalsIgnoreCase(playlistName)) {
                 return playlistList.get(i);
             }
         }
         return null;
     }
 
-    public void setLayout(int num){
+    public void setLayout(int num) {
         btnAddMusicToPlaylist.setVisible(false);
         btnRemoveMusicFromPlaylist.setVisible(false);
 
-        switch (num){
+        switch (num) {
             case 1:
                 btnAddMusic.setVisible(false);
                 btnCreateNewPlaylist.setVisible(false);
@@ -469,15 +636,21 @@ public class Controller {
         }
     }
 
-    public void adicionarMusicaToPlaylist() throws PlaylistNaoSelecionadaException{
-        if(selectedPlaylist == null){
+    public void adicionarMusicaToPlaylist() throws PlaylistNaoSelecionadaException {
+        if (selectedPlaylist == null) {
             throw new PlaylistNaoSelecionadaException();
         } else {
             setListViewSongs(songList);
+            btnCancelSong.setVisible(true);
             btnConfirmSong.setVisible(true);
             tgbSwitchMode.setDisable(true);
             btnAddMusicToPlaylist.setDisable(true);
             btnRemoveMusicFromPlaylist.setDisable(true);
+            btnPlayPause.setDisable(true);
+            btnBackward.setDisable(true);
+            btnForward.setDisable(true);
+            btnStop.setDisable(true);
+            btnOrder.setDisable(true);
         }
     }
 }

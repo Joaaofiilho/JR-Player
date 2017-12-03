@@ -45,7 +45,7 @@
             <Font size="11.0" />
          </font>
       </Button>
-      <Button fx:id="btnConfirmSong" layoutX="4.0" layoutY="241.0" mnemonicParsing="false" onAction="#btnConfirmSongOnAction" prefHeight="39.0" prefWidth="41.0" text="C" visible="false" />
+      <Button fx:id="btnConfirmSong" layoutX="4.0" layoutY="241.0" mnemonicParsing="false" onAction="#btnConfirmSongOnAction" prefHeight="39.0" prefWidth="41.0" text="OK" visible="false" />
       <Label fx:id="lblStatus" alignment="CENTER" layoutX="50.0" layoutY="58.0" prefHeight="21.0" prefWidth="400.0" style="-fx-background-color: #000000;" textFill="#10d709">
          <font>
             <Font name="Consolas" size="14.0" />
@@ -57,5 +57,6 @@
             <Font size="11.0" />
          </font>
       </Button>
+      <Button fx:id="btnCancelSong" layoutX="5.0" layoutY="288.0" mnemonicParsing="false" onAction="#btnCancelSongOnAction" prefHeight="39.0" prefWidth="41.0" text="Cancel" visible="false" />
    </children>
 </AnchorPane>

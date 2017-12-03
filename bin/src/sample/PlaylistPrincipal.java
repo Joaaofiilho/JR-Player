@@ -49,6 +49,7 @@ public class PlaylistPrincipal {
     }
 
     private void addMusicToTxt(String nomeMusica) {
+        definirEscritor();
         try {
             escritor.write(nomeMusica);
             escritor.newLine();
