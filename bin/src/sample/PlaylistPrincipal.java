@@ -22,7 +22,7 @@ public class PlaylistPrincipal {
     //Criar e copiar arquivos
     private DataOutputStream data;
 
-    public PlaylistPrincipal(){
+    public PlaylistPrincipal() {
         nome = "playlistMySongs";
         fileChooser = new FileChooser();
         //retomarPlaylist();
@@ -36,53 +36,48 @@ public class PlaylistPrincipal {
     }
 
     //A musica vai tanto para o arquivo txt quanto para a pasta songs
-    public void adicionarMusica(){
+    public void adicionarMusica() {
         File arquivo = fileChooser.showOpenDialog(null);
-        boolean nulo = false;
         try {
             Files.copy(arquivo.toPath(), new File(pathSongs + arquivo.getName()).toPath(), StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("PICNIC: " + e);
-        } catch (NullPointerException e){
-            nulo = true;
+        } catch (NullPointerException e) {
             System.out.println("Arquivo nulo: " + e);
         }
+        addMusicToTxt(arquivo.getName());
+    }
 
-        if (!nulo){
-            addMusicToTxt(arquivo.getName());
+    private void addMusicToTxt(String nomeMusica) {
+        try {
+            escritor.write(nomeMusica);
+            escritor.newLine();
+            escritor.close();
+        } catch (IOException e) {
+            System.out.println("Erro em adicionar musica para o txt: " + e.getMessage());
         }
     }
 
-    private void addMusicToTxt(String nomeMusica){
-            try {
-                escritor.write(nomeMusica);
-                escritor.newLine();
-                escritor.close();
-            }catch (IOException e){
-                System.out.println("Erro em adicionar musica para o txt: " + e.getMessage());
-            }
-    }
-
-    private String getNomeMusica(String uri){
+    private String getNomeMusica(String uri) {
         return uri.substring(uri.lastIndexOf('/') + 1, uri.length() - 4);
     }
 
-    public void definirEscritor(){
+    public void definirEscritor() {
         try {
             fileWriter = new FileWriter(pathCompleto, true);
             escritor = new BufferedWriter(fileWriter);
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println("Arquivo de texto não encontrado!");
         } catch (IOException e) {
             System.out.println("Erro em definir escritor: " + e.getMessage());
         }
     }
 
-    public void definirLeitor(){
+    public void definirLeitor() {
         try {
             fileReader = new FileReader(pathCompleto);
             leitor = new BufferedReader(fileReader);
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println("Arquivo de texto nao encontrado!");
         }
     }

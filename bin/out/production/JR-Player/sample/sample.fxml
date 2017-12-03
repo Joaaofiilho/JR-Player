@@ -14,17 +14,17 @@
    <children>
       <Slider fx:id="sldProgressBar" layoutX="50.0" layoutY="293.0" max="1000.0" prefHeight="7.0" style="-fx-pref-width: 400;" />
       <Slider fx:id="sldVolumeBar" layoutX="466.0" layoutY="58.0" orientation="VERTICAL" prefHeight="241.0" prefWidth="18.0" />
-      <Button fx:id="btnBackward" layoutX="187.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnBackwardOnAction" prefHeight="39.0" prefWidth="41.0" text="|&lt;" />
-      <Button fx:id="btnForward" layoutX="274.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnForwardOnAction" prefHeight="39.0" prefWidth="41.0" text="&gt;|" />
-      <Button fx:id="btnPlayPause" layoutX="230.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnPlayPauseOnAction" prefHeight="39.0" prefWidth="41.0" text="P" />
-      <Button fx:id="btnStop" layoutX="455.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnStopOnAction" prefHeight="39.0" prefWidth="41.0" text="S" />
-      <ListView fx:id="lstvLista" layoutX="50.0" layoutY="60.0" onEditCommit="#lstvListaOnEditCommit" onEditStart="#lstvListaOnEditStart" prefHeight="163.0" prefWidth="400.0" />
+      <Button fx:id="btnBackward" layoutX="177.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnBackwardOnAction" prefHeight="34.0" prefWidth="46.0" text="|&lt;" />
+      <Button fx:id="btnForward" layoutX="275.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnForwardOnAction" prefHeight="34.0" prefWidth="46.0" text="&gt;|" />
+      <Button fx:id="btnPlayPause" layoutX="226.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnPlayPauseOnAction" prefHeight="34.0" prefWidth="46.0" text="P" />
+      <Button fx:id="btnStop" layoutX="324.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnStopOnAction" prefHeight="34.0" prefWidth="46.0" text="S" />
+      <ListView fx:id="lstvLista" layoutX="50.0" layoutY="86.0" onEditCommit="#lstvListaOnEditCommit" onEditStart="#lstvListaOnEditStart" prefHeight="154.0" prefWidth="400.0" />
       <Label fx:id="lblDisplay" alignment="CENTER" layoutX="50.0" layoutY="240.0" prefHeight="40.0" prefWidth="400.0" style="-fx-background-color: #000000;" textFill="#10d709">
          <font>
             <Font name="Consolas" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="btnAddMusic" alignment="CENTER" ellipsisString="" layoutX="50.0" layoutY="5.0" mnemonicParsing="false" onAction="#btnAddMusicOnAction" prefHeight="50.0" prefWidth="130.0" text="Adicionar música&#10;ao player&#10;&#10;" textAlignment="CENTER">
+      <Button fx:id="btnAddMusic" alignment="CENTER" ellipsisString="" layoutX="51.0" layoutY="5.0" mnemonicParsing="false" onAction="#btnAddMusicOnAction" prefHeight="50.0" prefWidth="130.0" text="Adicionar música&#10;ao player&#10;&#10;" textAlignment="CENTER">
          <font>
             <Font size="11.0" />
          </font></Button>
@@ -39,5 +39,18 @@
          <opaqueInsets>
             <Insets />
          </opaqueInsets></ToggleButton>
+      <Button fx:id="btnOrder" layoutX="45.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnOrderOnAction" prefHeight="39.0" prefWidth="41.0" text="?" />
+      <Button fx:id="btnCarregarPlaylist" alignment="CENTER" ellipsisString="" layoutX="321.0" layoutY="5.0" mnemonicParsing="false" onAction="#btnCarregarPlaylistOnAction" prefHeight="50.0" prefWidth="130.0" text="Carregar&#10;playlist&#10;" textAlignment="CENTER">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnConfirmSong" layoutX="4.0" layoutY="241.0" mnemonicParsing="false" onAction="#btnConfirmSongOnAction" prefHeight="39.0" prefWidth="41.0" text="C" visible="false" />
+      <Label fx:id="lblStatus" alignment="CENTER" layoutX="51.0" layoutY="58.0" prefHeight="21.0" prefWidth="400.0" style="-fx-background-color: #000000;" textFill="#10d709">
+         <font>
+            <Font name="Consolas" size="14.0" />
+         </font>
+      </Label>
+      <Rectangle fill="#1f93ff00" height="28.0" layoutX="51.0" layoutY="56.0" stroke="#808080" strokeType="INSIDE" strokeWidth="4.0" width="400.0" />
    </children>
 </AnchorPane>

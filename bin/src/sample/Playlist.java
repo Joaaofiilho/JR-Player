@@ -1,5 +1,8 @@
 package sample;
 
+import sample.exceptions.MusicaNaoEncontradaException;
+import sample.exceptions.MusicaNaoSelecionadaException;
+
 import javax.swing.*;
 import java.io.*;
 import java.nio.file.Files;
@@ -69,11 +72,7 @@ public class Playlist {
                     }
                 } while (linha != null);
 
-                if (playlistName == null || playlistName.equals("")) {
-                    repeat = true;
-                }
-
-                if (!repeat) {
+                if (!repeat && (playlistName != null || !playlistName.equals(""))) {
                     playlist.setNome(playlistName);
                     playlist.escreverNaPlaylistList(playlistName);
                     playlist.escreverNoArray(playlistList, playlist);
@@ -122,15 +121,19 @@ public class Playlist {
         Collections.sort(songNames);
     }
 
-    public void adicionarMusica(String nomeMusica){
-        definirEscritor(pathPlaylists + this.getNome() + ".txt");
-        definirLeitor(pathPlaylists + this.getNome() + ".txt");
-        try{
-            escritor.write(nomeMusica);
-            escritor.newLine();
-            escritor.close();
-        }catch (IOException e){
-            System.out.println("Erro ao adicionar uma musica na playlist");
+    public void adicionarMusica(String nomeMusica) throws MusicaNaoSelecionadaException{
+        if(nomeMusica == null || nomeMusica.equals("")){
+            throw new MusicaNaoSelecionadaException();
+        }else {
+            definirEscritor(pathPlaylists + this.getNome() + ".txt");
+            definirLeitor(pathPlaylists + this.getNome() + ".txt");
+            try {
+                escritor.write(nomeMusica);
+                escritor.newLine();
+                escritor.close();
+            } catch (IOException e) {
+                System.out.println("Erro ao adicionar uma musica na playlist");
+            }
         }
     }
 
