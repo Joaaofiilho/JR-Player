@@ -281,6 +281,10 @@ public class Controller {
         System.out.println("Teste");
     }
 
+    public void btnRemovePlaylistOnAction(ActionEvent event){
+
+    }
+
     //Métodos úteis
 
     public String getNomeDaMusica(Media media) {
