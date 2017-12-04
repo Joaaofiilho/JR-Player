@@ -33,6 +33,9 @@ public class PlaylistPrincipal {
         //Definindo que tipo de arquivos o FileChooser pode pegar
         //fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Arquivos MP3", "*.mp3"));
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Arquivo MP3", "*.mp3"));
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Arquivo WAV", "*.wav"));
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Arquivo WMA", "*.wma"));
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Arquivo AAC", "*.aac"));
     }
 
     //A musica vai tanto para o arquivo txt quanto para a pasta songs

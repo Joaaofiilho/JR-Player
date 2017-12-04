@@ -2,8 +2,6 @@ package sample;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,12 +13,10 @@ import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
-import javafx.util.Duration;
 import sample.exceptions.MusicaJaExisteException;
 import sample.exceptions.MusicaNaoEncontradaException;
 import sample.exceptions.MusicaNaoSelecionadaException;
 import sample.exceptions.PlaylistNaoSelecionadaException;
-
 
 import java.io.*;
 import java.nio.file.Files;
@@ -112,15 +108,6 @@ public class Controller {
             }
         });
         sldVolumeBar.setValue(50);
-
-//        sldProgressBar.valueProperty().addListener(new ChangeListener<Number>() {
-//            @Override
-//            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-//                mediaPlayer.stop();
-//                mediaPlayer.setStartTime(new Duration((sldProgressBar.getValue()*mediaPlayer.getTotalDuration().toSeconds()) / sldVolumeBar.getMax()));
-//                mediaPlayer.play();
-//            }
-//        });
     }
 
     public void btnPlayPauseOnAction(ActionEvent event) {
@@ -144,7 +131,7 @@ public class Controller {
                 mediaPlayer.play();
                 new MyThread(this, mediaPlayer, sldProgressBar).start();
                 isPlaying = true;
-                lblDisplay.setText("Now playing: " + getNomeDaMusica(media).substring(0, getNomeDaMusica(media).length() - 4));
+                lblDisplay.setText("Now playing: " + getNomeDaMusica(media).substring(0, getNomeDaMusica(media).length() - 4).replaceAll("%20", " "));
             }
 
         } catch (MusicaNaoEncontradaException e) {
