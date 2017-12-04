@@ -2,6 +2,8 @@ package sample;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,6 +15,7 @@ import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 import sample.exceptions.MusicaJaExisteException;
 import sample.exceptions.MusicaNaoEncontradaException;
 import sample.exceptions.MusicaNaoSelecionadaException;
@@ -108,19 +111,16 @@ public class Controller {
                 }
             }
         });
-
         sldVolumeBar.setValue(50);
 
-        try {
-            mediaPlayer.setOnPlaying(new Runnable() {
-                public void run() {
-                    sldProgressBar.setValue((mediaPlayer.getCurrentTime().toSeconds()) * (sldProgressBar.getMax() / mediaPlayer.getTotalDuration().toSeconds()));
-                }
-            });
-        } catch (Exception e ){
-
-        }
-
+//        sldProgressBar.valueProperty().addListener(new ChangeListener<Number>() {
+//            @Override
+//            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+//                mediaPlayer.stop();
+//                mediaPlayer.setStartTime(new Duration((sldProgressBar.getValue()*mediaPlayer.getTotalDuration().toSeconds()) / sldVolumeBar.getMax()));
+//                mediaPlayer.play();
+//            }
+//        });
     }
 
     public void btnPlayPauseOnAction(ActionEvent event) {
