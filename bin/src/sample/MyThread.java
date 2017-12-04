@@ -17,13 +17,14 @@ public class MyThread extends Thread {
     }
 
     public void run() {
-        while (controller.isPlaying()){
+        while (controller.isPlaying()) {
             sldProgressBar.setValue((mediaPlayer.getCurrentTime().toSeconds()) * (sldProgressBar.getMax() / mediaPlayer.getTotalDuration().toSeconds()));
             try {
                 Thread.sleep(tempo);
             } catch (Exception e) {
-                System.out.println("Deu ruim: " + e.getMessage());
+                System.out.println("Erro no thread!");
             }
         }
     }
+
 }

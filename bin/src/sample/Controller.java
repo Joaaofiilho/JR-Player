@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -96,6 +98,29 @@ public class Controller {
     public void initialize() {
         tgbSwitchMode.fire();
         tgbSwitchMode.fire();
+
+        sldVolumeBar.valueProperty().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                try {
+                    mediaPlayer.setVolume(sldVolumeBar.getValue() / 100);
+                } catch (NullPointerException e){
+                }
+            }
+        });
+
+        sldVolumeBar.setValue(50);
+
+        try {
+            mediaPlayer.setOnPlaying(new Runnable() {
+                public void run() {
+                    sldProgressBar.setValue((mediaPlayer.getCurrentTime().toSeconds()) * (sldProgressBar.getMax() / mediaPlayer.getTotalDuration().toSeconds()));
+                }
+            });
+        } catch (Exception e ){
+
+        }
+
     }
 
     public void btnPlayPauseOnAction(ActionEvent event) {
@@ -105,6 +130,7 @@ public class Controller {
                 songSelected = true;
             }
             if (!getSelectedListItem().equalsIgnoreCase(getNomeDaMusica(media))) {
+                isPlaying = false;
                 lblDisplay.setText("");
                 mediaPlayer.stop();
                 setSong(getSelectedListItem());
@@ -116,36 +142,10 @@ public class Controller {
                 isPlaying = false;
             } else {
                 mediaPlayer.play();
+                new MyThread(this, mediaPlayer, sldProgressBar).start();
                 isPlaying = true;
-                threadBarra = new MyThread(this, mediaPlayer, sldProgressBar);
-                threadBarra.start();
                 lblDisplay.setText("Now playing: " + getNomeDaMusica(media).substring(0, getNomeDaMusica(media).length() - 4));
             }
-//            if (isPlaying && getSelectedListItem().equals(currentSong)) {
-//                System.out.println("aaaaaaaa");
-//                mediaPlayer.pause();
-//                isPlaying = false;
-//            }
-//
-//            if(isPlaying && !getSelectedListItem().equals(currentSong)){
-//                System.out.println("Teste!");
-//                mediaPlayer.stop();
-//                threadBarra.stop();
-//
-//                setSong(getSelectedListItem());
-//                lblDisplay.setText("Now playing: " + getNomeDaMusica(media));
-//
-//                mediaPlayer.play();
-//                isPlaying = true;
-//            }
-//            if(!isPlaying && getSelectedListItem().equals(currentSong)){
-//                System.out.println("bbbbbbbbbb");
-//                mediaPlayer.play();
-//                isPlaying = true;
-//                threadBarra = new MyThread(this, mediaPlayer, sldProgressBar);
-//                threadBarra.start();
-//            }
-
 
         } catch (MusicaNaoEncontradaException e) {
             System.out.println("Música não foi encontrada!");
@@ -168,70 +168,25 @@ public class Controller {
     }
 
     public void btnForwardOnAction(ActionEvent event) {
-        try {
-            avancarMusica(currentSong);
-        }catch (PlaylistNaoSelecionadaException e){
-            System.out.println("Nenhuma playlist foi selecionada!");
-        }catch (ArrayIndexOutOfBoundsException e){
-            System.out.println("Não há uma música posterior!");
+        if (lstvLista.getSelectionModel().getSelectedIndex() != lstvLista.getItems().size() - 1) {
+            lstvLista.getSelectionModel().select(lstvLista.getSelectionModel().getSelectedIndex() + 1);
         }
+        btnStop.fire();
+        if (isPlaying()){
+            isPlaying = false;
+        }
+        btnPlayPause.fire();
     }
 
     public void btnBackwardOnAction(ActionEvent event) {
-        try {
-            voltarMusica(currentSong);
-            threadBarra = new MyThread(this, mediaPlayer, sldProgressBar);
-            threadBarra.start();
-            mediaPlayer.play();
-        }catch (PlaylistNaoSelecionadaException e){
-            System.out.println("Nenhuma playlist foi selecionada!");
-        }catch (ArrayIndexOutOfBoundsException e){
-            System.out.println("Não há uma música anterior!");
+        if (lstvLista.getSelectionModel().getSelectedIndex() != 0) {
+            lstvLista.getSelectionModel().select(lstvLista.getSelectionModel().getSelectedIndex() - 1);
         }
-    }
-
-    public void avancarMusica(String nomeMusica) throws PlaylistNaoSelecionadaException, ArrayIndexOutOfBoundsException{
-        if(lstvLista.getItems() == null){
-            throw new PlaylistNaoSelecionadaException();
-        }else{
-            for (int i = 0; i < lstvLista.getItems().size(); i++) {
-                try {
-                    //Aqui eu pego a lstvView inteira e vejo qual a musica anterior e seto o som com base no nome da
-                    //musica que eu achei
-                    if (getSelectedListItem().equalsIgnoreCase(nomeMusica)) {
-                        if(!(lstvLista.getSelectionModel().getSelectedIndex() == lstvLista.getItems().size()-1)) {
-                            mediaPlayer.stop();
-                            setSong(lstvLista.getItems().get(lstvLista.getSelectionModel().getSelectedIndex() + 1));
-                        }
-                    }else throw new ArrayIndexOutOfBoundsException();
-                }catch (MusicaNaoEncontradaException e){
-                    System.out.println("Não existe uma música posterior!");
-                }
-            }
+        btnStop.fire();
+        if (isPlaying()){
             isPlaying = false;
         }
-    }
-
-    public void voltarMusica(String nomeMusica) throws PlaylistNaoSelecionadaException, ArrayIndexOutOfBoundsException{
-        if(lstvLista.getItems() == null){
-            throw new PlaylistNaoSelecionadaException();
-        }else{
-            for (int i = 0; i < lstvLista.getItems().size(); i++) {
-                try {
-                    //Aqui eu pego a lstvView inteira e vejo qual a musica anterior e seto o som com base no nome da
-                    //musica que eu achei
-                    if (getSelectedListItem().equalsIgnoreCase(nomeMusica)) {
-                        if(lstvLista.getSelectionModel().getSelectedIndex() > 0) {
-                            mediaPlayer.stop();
-                            setSong(lstvLista.getItems().get(lstvLista.getSelectionModel().getSelectedIndex() - 1));
-                        }
-                    }else throw new ArrayIndexOutOfBoundsException();
-                }catch (MusicaNaoEncontradaException e){
-                    System.out.println("Não existe uma música anterior!");
-                }
-            }
-            isPlaying = false;
-        }
+        btnPlayPause.fire();
     }
 
     public void btnCreateNewPlaylistOnAction(ActionEvent event) {
@@ -375,15 +330,6 @@ public class Controller {
                 alphabeticOrder = true;
             }
         }
-    }
-
-    public void lstvListaOnEditStart(ActionEvent event) {
-
-    }
-
-    public void lstvListaOnEditCommit(ActionEvent event) {
-        System.out.println(lstvLista.getSelectionModel());
-        System.out.println("Teste");
     }
 
     public void btnRemovePlaylistOnAction(ActionEvent event) {
@@ -653,4 +599,5 @@ public class Controller {
             btnOrder.setDisable(true);
         }
     }
+
 }

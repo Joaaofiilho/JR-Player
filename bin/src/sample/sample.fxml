@@ -18,7 +18,7 @@
       <Button fx:id="btnForward" layoutX="275.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnForwardOnAction" prefHeight="34.0" prefWidth="46.0" text="&gt;|" />
       <Button fx:id="btnPlayPause" layoutX="226.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnPlayPauseOnAction" prefHeight="34.0" prefWidth="46.0" text="P" />
       <Button fx:id="btnStop" layoutX="324.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnStopOnAction" prefHeight="34.0" prefWidth="46.0" text="S" />
-      <ListView fx:id="lstvLista" layoutX="50.0" layoutY="86.0" onEditCommit="#lstvListaOnEditCommit" onEditStart="#lstvListaOnEditStart" prefHeight="154.0" prefWidth="400.0" />
+      <ListView fx:id="lstvLista" layoutX="50.0" layoutY="86.0" prefHeight="154.0" prefWidth="400.0" />
       <Label fx:id="lblDisplay" alignment="CENTER" layoutX="50.0" layoutY="240.0" prefHeight="40.0" prefWidth="400.0" style="-fx-background-color: #000000;" textFill="#10d709">
          <font>
             <Font name="Consolas" size="20.0" />
